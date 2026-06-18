@@ -62,7 +62,6 @@
       margin-top: 0.5rem;
     }
 
-    /* Botones de categoría */
     .categorias {
       display: flex;
       justify-content: center;
@@ -98,7 +97,6 @@
       box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
     }
 
-    /* Cuadrícula */
     .glosario-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -145,7 +143,6 @@
       opacity: 0.4;
     }
 
-    /* --- VISUALES CSS PARA TÉCNICAS Y CORTES --- */
     .visual-tecnica {
       display: flex;
       justify-content: center;
@@ -168,7 +165,6 @@
       color: #6b5a44;
     }
 
-    /* Formas para técnicas */
     .fuego { display: inline-block; width: 14px; height: 18px; background: #e67e22; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform: rotate(45deg); }
     .agua { display: inline-block; width: 16px; height: 12px; background: #3498db; border-radius: 0 0 50% 50%; }
     .vapor { display: inline-block; width: 4px; height: 12px; background: #bdc3c7; border-radius: 50%; opacity: 0.6; }
@@ -198,14 +194,12 @@
     .rombo { display: inline-block; width: 12px; height: 12px; background: #8a7a5a; transform: rotate(45deg); border: 1px solid #5a4a2a; }
     .espiral { display: inline-block; width: 12px; height: 12px; border: 3px solid #8a7a5a; border-radius: 50%; border-top-color: transparent; animation: spin 2s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .corazon { display: inline-block; width: 14px; height: 14px; background: #8a7a5a; transform: rotate(45deg); border-radius: 50% 0 50% 0; }
     .estrella { display: inline-block; font-size: 16px; color: #8a7a5a; }
     .flecha { display: inline-block; width: 14px; height: 4px; background: #8a7a5a; position: relative; }
     .flecha::after { content: ''; position: absolute; right: -6px; top: -4px; width: 0; height: 0; border-left: 6px solid #8a7a5a; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
     .linea { display: inline-block; width: 20px; height: 2px; background: #8a7a5a; }
     .punto { display: inline-block; width: 6px; height: 6px; background: #8a7a5a; border-radius: 50%; }
 
-    /* --- Usos en comida --- */
     .usos-comida {
       display: flex;
       flex-wrap: wrap;
@@ -240,12 +234,14 @@
       align-items: center;
       z-index: 1000;
       backdrop-filter: blur(2px);
+      overflow-y: auto;
+      padding: 1rem;
     }
 
     .modal-content {
       background: #fef7e9;
-      max-width: 500px;
-      width: 90%;
+      max-width: 550px;
+      width: 95%;
       padding: 2rem;
       border: 6px double #8b5a2b;
       border-radius: 12px;
@@ -253,6 +249,8 @@
       position: relative;
       font-family: Georgia, 'Times New Roman', serif;
       animation: abrir 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     @keyframes abrir {
@@ -269,10 +267,28 @@
       margin-bottom: 1.2rem;
     }
 
+    .modal-content h3 {
+      font-size: 1.3rem;
+      color: #5c3a21;
+      margin: 1rem 0 0.5rem;
+      border-left: 4px solid #8b5a2b;
+      padding-left: 0.8rem;
+    }
+
     .modal-content p {
       font-size: 1.1rem;
       line-height: 1.6;
       color: #3e2e1f;
+    }
+
+    .modal-content ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: #3e2e1f;
+    }
+
+    .modal-content ol li {
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
     }
 
     .modal-visual {
@@ -282,6 +298,7 @@
       margin: 12px 0;
       font-size: 1.6rem;
     }
+
     .modal-usos {
       display: flex;
       flex-wrap: wrap;
@@ -289,6 +306,7 @@
       gap: 6px;
       margin-top: 10px;
     }
+
     .modal-usos span {
       background: #ede4d5;
       padding: 2px 14px;
@@ -310,6 +328,7 @@
       border: none;
       line-height: 1;
       transition: color 0.2s;
+      z-index: 10;
     }
 
     .cerrar-modal:hover {
@@ -326,18 +345,10 @@
     }
 
     @media (max-width: 600px) {
-      .container {
-        padding: 1rem;
-      }
-      header h1 {
-        font-size: 2.2rem;
-      }
-      .casilla {
-        font-size: 1rem;
-      }
-      .glosario-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      }
+      .container { padding: 1rem; }
+      header h1 { font-size: 2.2rem; }
+      .casilla { font-size: 1rem; }
+      .glosario-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
   </style>
 </head>
@@ -356,9 +367,7 @@
 
     <div class="glosario-grid" id="glosarioGrid"></div>
 
-    <footer>
-      Hecho con 🍳 y pasión por la cocina
-    </footer>
+    <footer>Hecho con 🍳 y pasión por la cocina</footer>
   </div>
 
   <!-- Modal -->
@@ -368,182 +377,179 @@
       <h2 id="modalTitulo"></h2>
       <div id="modalVisual" class="modal-visual"></div>
       <p id="modalDefinicion"></p>
+      <div id="modalProcedimiento"></div>
       <div id="modalUsos" class="modal-usos"></div>
     </div>
   </div>
 
   <script>
-    // ---------- GLOSARIO COMPLETO CON 40 TÉRMINOS ----------
     const glosario = [
-      // ========== TÉCNICAS (con visuales CSS) ==========
-      { termino: "Abrillantar", definicion: "Dar brillo a un alimento con jalea, gelatina o almíbar.", categoria: "tecnica", visual: `<span class="estrella">✦</span><span class="estrella">✦</span><span class="estrella">✦</span>`, usos: ["✨ Acabados", "🍰 Repostería"] },
-      { termino: "Acaramelar", definicion: "Cubrir con caramelo o cocinar hasta que se forme caramelo natural.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍮 Postres", "🍎 Frutas"] },
-      { termino: "Adobar", definicion: "Poner carnes o pescados en un aliño para conservar y dar sabor.", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
-      { termino: "Ahumar", definicion: "Exponer alimentos al humo de maderas aromáticas para cocerlos o saborizarlos.", categoria: "tecnica", visual: `<span class="vapor"></span><span class="vapor"></span><span class="vapor"></span>`, usos: ["🥓 Carnes", "🐟 Pescados", "🧀 Quesos"] },
-      { termino: "Amasar", definicion: "Trabajar masas con las manos o máquina para desarrollar gluten.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🍞 Panes", "🍕 Pizzas"] },
-      { termino: "Baño María", definicion: "Cocinar un alimento dentro de un recipiente sumergido en agua caliente, suave y uniforme.", categoria: "tecnica", visual: `<span class="olla"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🍮 Cremas", "🍫 Chocolates"] },
-      { termino: "Batir", definicion: "Agitar enérgicamente una mezcla para incorporar aire o homogeneizar.", categoria: "tecnica", visual: `<span class="flecha"></span><span class="flecha"></span><span class="flecha"></span>`, usos: ["🥚 Huevos", "🥛 Nata", "🍰 Masas"] },
-      { termino: "Blanquear", definicion: "Cocer brevemente en agua hirviendo y luego sumergir en agua helada para detener la cocción.", categoria: "tecnica", visual: `<span class="agua"></span><span class="circulo"></span><span class="agua"></span>`, usos: ["🥗 Verduras", "🥦 Conservas"] },
-      { termino: "Bouquet garni", definicion: "Atado de hierbas aromáticas (laurel, tomillo, perejil) usado para dar sabor a caldos.", categoria: "tecnica", visual: `<span class="linea"></span><span class="linea"></span><span class="linea"></span>`, usos: ["🍲 Caldos", "🥘 Estofados"] },
-      { termino: "Brasear", definicion: "Dorar un alimento y luego cocinarlo lentamente en líquido aromático, con tapa.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="olla"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍗 Aves"] },
-      { termino: "Caramelizar", definicion: "Cocinar azúcar hasta que se derrita y tome color, o lograr que los azúcares naturales de un alimento se doren.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="circulo"></span><span class="fuego"></span>`, usos: ["🍮 Postres", "🧅 Cebollas"] },
-      { termino: "Clarificar", definicion: "Eliminar impurezas de un líquido, como al hacer mantequilla clarificada o caldos transparentes.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="linea"></span><span class="circulo"></span>`, usos: ["🧈 Mantequilla", "🍲 Caldos"] },
-      { termino: "Confitar", definicion: "Cocer lentamente un alimento sumergido en grasa (pato, cerdo) a baja temperatura.", categoria: "tecnica", visual: `<span class="olla"></span><span class="fuego"></span><span class="olla"></span>`, usos: ["🦆 Pato", "🥩 Carnes"] },
-      { termino: "Desglasar", definicion: "Añadir vino, caldo o agua a una sartén caliente para disolver los jugos caramelizados del fondo.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="agua"></span><span class="sarten"></span>`, usos: ["🥩 Carnes", "🍷 Salsas"] },
-      { termino: "Deshuesar", definicion: "Quitar los huesos de carnes, aves o pescados.", categoria: "tecnica", visual: `<span class="cuchillo"></span><span class="cuchillo"></span><span class="cuchillo"></span>`, usos: ["🍗 Aves", "🐟 Pescados"] },
-      { termino: "Dorar", definicion: "Cocinar un alimento en grasa caliente hasta que adquiera un color dorado en el exterior.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="sarten"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍞 Panes"] },
-      { termino: "Emplatar", definicion: "Disponer los alimentos en el plato de forma estética antes de servir.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍽️ Presentación", "✨ Decoración"] },
-      { termino: "Emulsionar", definicion: "Mezclar dos líquidos que no se juntan (aceite y vinagre) hasta lograr una textura homogénea.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🥗 Ensaladas", "🥫 Salsas"] },
-      { termino: "Escalfar", definicion: "Cocer en líquido justo por debajo del punto de ebullición (ej. huevo escalfado).", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🥚 Huevos", "🐟 Pescados"] },
-      { termino: "Espolvorear", definicion: "Esparcir un ingrediente en polvo (azúcar, canela) sobre una preparación.", categoria: "tecnica", visual: `<span class="punto"></span><span class="punto"></span><span class="punto"></span>`, usos: ["🍰 Repostería", "☕ Bebidas"] },
-      { termino: "Espumar", definicion: "Retirar la espuma o impurezas que suben a la superficie de caldos o mermeladas.", categoria: "tecnica", visual: `<span class="cuchara"></span><span class="cuchara"></span><span class="cuchara"></span>`, usos: ["🍲 Caldos", "🍯 Mermeladas"] },
-      { termino: "Estofar", definicion: "Cocinar un alimento a fuego lento con poco líquido y verduras, en recipiente cerrado.", categoria: "tecnica", visual: `<span class="olla"></span><span class="fuego"></span><span class="olla"></span>`, usos: ["🥩 Carnes", "🥘 Guisos"] },
-      { termino: "Fermentar", definicion: "Transformar alimentos mediante la acción de levaduras o bacterias (pan, yogur, vino).", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🍞 Panes", "🍷 Vinos", "🥛 Yogures"] },
-      { termino: "Filetear", definicion: "Cortar en filetes o lonjas finas.", categoria: "tecnica", visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
-      { termino: "Flamber", definicion: "Rociar con licor y prender fuego para realzar sabores y eliminar el alcohol.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="fuego"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍮 Postres"] },
-      { termino: "Glasear", definicion: "Cubrir con almíbar, gelatina o jugo reducido para dar brillo y sabor.", categoria: "tecnica", visual: `<span class="estrella">✦</span><span class="estrella">✦</span><span class="estrella">✦</span>`, usos: ["🍰 Repostería", "🥕 Verduras"] },
-      { termino: "Gratinar", definicion: "Dorar la superficie de un plato con calor superior, generalmente con queso o pan rallado.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="linea"></span><span class="fuego"></span>`, usos: ["🧀 Gratinados", "🍝 Pastas"] },
-      { termino: "Infusionar", definicion: "Extraer los aromas y sabores de hierbas o especias sumergiéndolas en un líquido caliente.", categoria: "tecnica", visual: `<span class="agua"></span><span class="linea"></span><span class="agua"></span>`, usos: ["☕ Tés", "🌿 Hierbas"] },
-      { termino: "Leudar", definicion: "Proceso de fermentación de masas por levadura, liberando gas y aumentando el volumen.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍞 Panes", "🍕 Pizzas"] },
-      { termino: "Macerar", definicion: "Dejar un alimento en un líquido frío (vino, licor, azúcar) para que absorba sabor.", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🍎 Frutas", "🥩 Carnes"] },
-      { termino: "Marinar", definicion: "Sumergir carnes o pescados en un líquido condimentado para ablandar y dar sabor.", categoria: "tecnica", visual: `<span class="agua"></span><span class="cuadrado"></span><span class="agua"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
-      { termino: "Mise en place", definicion: "Preparar y medir todos los ingredientes antes de empezar a cocinar (todo en su lugar).", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🔪 Organización", "⏱️ Eficiencia"] },
-      { termino: "Montar", definicion: "Batir nata o claras de huevo hasta que alcancen consistencia firme.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🥛 Nata", "🥚 Huevos"] },
-      { termino: "Napar", definicion: "Cubrir completamente un alimento con una salsa espesa.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🥩 Carnes", "🍝 Pastas"] },
-      { termino: "Pochar", definicion: "Cocer suavemente en un líquido a baja temperatura, sin que hierva.", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🥚 Huevos", "🐟 Pescados"] },
-      { termino: "Rebozar", definicion: "Cubrir un alimento con harina, huevo y pan rallado antes de freír.", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🍗 Pollo", "🐟 Pescados"] },
-      { termino: "Reducir", definicion: "Hervir un líquido para concentrar sabores y espesar la preparación.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="agua"></span><span class="fuego"></span>`, usos: ["🍷 Salsas", "🍲 Caldos"] },
-      { termino: "Saltear", definicion: "Cocinar rápidamente en poca grasa a fuego alto, moviendo constantemente.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["🥗 Verduras", "🍄 Setas"] },
-      { termino: "Sofreír", definicion: "Freír ligeramente a fuego medio-bajo hasta que el alimento esté tierno y aromático.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["🧅 Cebollas", "🧄 Ajos"] },
-      { termino: "Templar", definicion: "Igualar la temperatura de dos mezclas añadiendo poco a poco la caliente a la fría.", categoria: "tecnica", visual: `<span class="linea"></span><span class="linea"></span><span class="linea"></span>`, usos: ["🥚 Huevos", "🍫 Chocolates"] },
+      // ========== TÉCNICAS (con procedimiento paso a paso) ==========
+      { termino: "Blanquear", 
+        definicion: "Cocer brevemente en agua hirviendo y luego sumergir en agua helada para detener la cocción, conservando color y textura.", 
+        procedimiento: [
+          "Pon a hervir abundante agua con una pizca de sal en una olla grande.",
+          "Prepara un recipiente con agua fría y bastantes cubos de hielo al lado.",
+          "Sumerge las verduras limpias en el agua hirviendo.",
+          "Deja cocer entre 30 segundos y 2 minutos (según la dureza de la verdura).",
+          "Saca las verduras con una espumadera o pinzas.",
+          "Pásalas inmediatamente al agua helada para cortar la cocción.",
+          "Escurre bien y reserva o congela."
+        ],
+        categoria: "tecnica", visual: `<span class="agua"></span><span class="circulo"></span><span class="agua"></span>`, usos: ["Verduras", "Conservas"] },
+      { termino: "Brasear", 
+        definicion: "Dorar un alimento y luego cocinarlo lentamente en líquido aromático, con tapa, ideal para carnes duras.", 
+        procedimiento: [
+          "Salpimienta la carne y séllala en una sartén con aceite caliente hasta dorar todos los lados.",
+          "Retira la carne y sofríe cebolla, zanahoria y apio en la misma sartén.",
+          "Añade un chorro de vino tinto y deja que evapore el alcohol (1-2 minutos).",
+          "Vuelve a poner la carne, añade caldo hasta cubrir la mitad y hierbas aromáticas.",
+          "Tapa la olla y cocina a fuego MUY bajo durante 2-3 horas.",
+          "La carne debe quedar tan tierna que se deshaga con el tenedor."
+        ],
+        categoria: "tecnica", visual: `<span class="sarten"></span><span class="olla"></span><span class="fuego"></span>`, usos: ["Carnes", "Aves"] },
+      { termino: "Emulsionar", 
+        definicion: "Mezclar dos líquidos que normalmente no se juntan (como aceite y vinagre) hasta lograr una textura homogénea.", 
+        procedimiento: [
+          "Pon el vinagre (o limón) en un bol junto con la sal y mostaza si usas.",
+          "Bate con varillas manuales o batidora eléctrica.",
+          "Añade el aceite EN HILO MUY FINO, sin dejar de batir en una sola dirección.",
+          "Sigue batiendo hasta que la mezcla espese y se vea cremosa y homogénea.",
+          "Si se corta, añade una cucharadita de agua fría y sigue batiendo."
+        ],
+        categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["Ensaladas", "Salsas"] },
+      { termino: "Sofreír", 
+        definicion: "Freír ligeramente a fuego medio-bajo hasta que el alimento esté tierno y aromático, sin llegar a dorar.", 
+        procedimiento: [
+          "Calienta un chorro de aceite en una sartén a fuego medio-bajo.",
+          "Añade la cebolla o ajo picados (los más duros primero).",
+          "Remueve constantemente con una cuchara de madera.",
+          "Cocina hasta que estén transparentes y suaves (5-8 minutos para cebolla).",
+          "No debe tomar color marrón; si se dora, baja el fuego."
+        ],
+        categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["Cebollas", "Ajos", "Verduras"] },
+      { termino: "Reducir", 
+        definicion: "Hervir un líquido para evaporar parte del agua y concentrar los sabores, espesando la preparación.", 
+        procedimiento: [
+          "Vierte el caldo o vino en una sartén amplia (mejor que olla para más superficie).",
+          "Pon a fuego medio-alto y NO tapes.",
+          "Deja que hierva y evapore; verás cómo burbujea y el volumen disminuye.",
+          "Remueve de vez en cuando para que no se pegue.",
+          "Retira cuando tenga la consistencia deseada (jarabe ligero, salsa espesa, etc.)."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="agua"></span><span class="fuego"></span>`, usos: ["Salsas", "Caldos", "Vinos"] },
+      { termino: "Flamber", 
+        definicion: "Rociar un plato con licor y prenderle fuego para realzar sabores y eliminar el alcohol.", 
+        procedimiento: [
+          "Calienta el licor (ron, coñac) en un cazo aparte SIN que hierva.",
+          "Retira la sartén del fuego (¡importante por seguridad!).",
+          "Vierte el licor caliente sobre el plato.",
+          "Con un encendedor largo o cerilla, prende fuego inclinando ligeramente la sartén.",
+          "Deja que la llama se apague sola (el alcohol se habrá evaporado)."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="fuego"></span><span class="fuego"></span>`, usos: ["Carnes", "Postres"] },
+      { termino: "Marinar", 
+        definicion: "Sumergir carnes o pescados en un líquido condimentado para ablandar las fibras y dar sabor.", 
+        procedimiento: [
+          "Mezcla aceite, ácido (limón, vinagre o vino), hierbas y especias.",
+          "Coloca la carne o pescado en un recipiente no metálico (vidrio o bolsa zip).",
+          "Cubre completamente con la marinada.",
+          "Tapa y refrigera (30 min para pescados, 2-8 horas para carnes rojas).",
+          "Saca y seca con papel de cocina antes de cocinar."
+        ],
+        categoria: "tecnica", visual: `<span class="agua"></span><span class="cuadrado"></span><span class="agua"></span>`, usos: ["Carnes", "Pescados"] },
+      { termino: "Gratinar", 
+        definicion: "Dorar la superficie de un plato con calor superior, generalmente con queso o pan rallado.", 
+        procedimiento: [
+          "Prepara tu plato ya cocinado (pasta, verduras, etc.).",
+          "Cubre la superficie con queso rallado y/o pan rallado.",
+          "Añade unos puntitos de mantequilla para que dore mejor.",
+          "Mete al horno con calor SOLO arriba (gratinador) a 200-220°C.",
+          "Vigila constantemente; en 3-5 minutos estará dorado y burbujeante."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="linea"></span><span class="fuego"></span>`, usos: ["Pastas", "Verduras"] },
 
-      // ========== CORTES (con visuales CSS y usos) ==========
-      { 
-        termino: "Juliana", 
-        definicion: "Corte en tiras finas alargadas de aproximadamente 4‑5 cm de largo y 1‑2 mm de grosor.", 
-        categoria: "corte",
-        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
-        usos: ["🥗 Ensaladas", "🍚 Arroces", "🐟 Rellenos"]
-      },
-      { 
-        termino: "Brunoise", 
-        definicion: "Corte en cubos muy pequeños de 2‑3 mm por lado, generalmente a partir de la juliana.", 
-        categoria: "corte",
-        visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`,
-        usos: ["🥗 Ensaladas", "🥫 Salsas", "🥟 Rellenos", "🧂 Aderezos"]
-      },
-      { 
-        termino: "Macedonia", 
-        definicion: "Corte en cubos medianos (aprox. 5 mm) usado para frutas o verduras.", 
-        categoria: "corte",
-        visual: `<span class="cubo-md"></span><span class="cubo-md"></span><span class="cubo-md"></span>`,
-        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥟 Rellenos"]
-      },
-      { 
-        termino: "Chiffonade", 
-        definicion: "Corte de hojas (lechuga, espinaca) en tiras muy finas enrollando las hojas y cortando transversalmente.", 
-        categoria: "corte",
-        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
-        usos: ["🥗 Ensaladas", "🌿 Guarniciones", "🥘 Rehogados"]
-      },
-      { 
-        termino: "Bâtonnet", 
-        definicion: "Bastones alargados de unos 5 cm × 6 mm × 6 mm, típico para papas fritas.", 
-        categoria: "corte",
-        visual: `<span class="tira-gruesa"></span><span class="tira-gruesa"></span><span class="tira-gruesa"></span>`,
-        usos: ["🍟 Papas fritas", "🥗 Guarniciones"]
-      },
-      { 
-        termino: "Paysanne", 
-        definicion: "Corte en láminas finas y formas geométricas irregulares (triángulos, rectángulos).", 
-        categoria: "corte",
-        visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`,
-        usos: ["🍲 Sopas", "🥘 Guisos", "🥗 Ensaladas"]
-      },
-      { 
-        termino: "Concassé", 
-        definicion: "Tomate pelado, sin semillas y picado en cubos pequeños.", 
-        categoria: "corte",
-        visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`,
-        usos: ["🍅 Salsas", "🍝 Pastas", "🥫 Conservas"]
-      },
-      { 
-        termino: "Torneado", 
-        definicion: "Corte decorativo que da forma ovalada y alargada (como balón de rugby) a verduras.", 
-        categoria: "corte",
-        visual: `<span style="display:inline-block;width:20px;height:10px;background:#8a7a5a;border-radius:50%;border:1px solid #5a4a2a;"></span>`,
-        usos: ["🍽️ Presentación", "🥘 Guarniciones elegantes"]
-      },
-      { 
-        termino: "Noisette", 
-        definicion: "Bolitas del tamaño de una avellana sacadas con cuchara sacabocados, en patatas o frutas.", 
-        categoria: "corte",
-        visual: `<span class="bola-chica"></span><span class="bola-chica"></span><span class="bola-chica"></span>`,
-        usos: ["🍽️ Guarniciones", "✨ Presentación de platos"]
-      },
-      { 
-        termino: "Parisienne", 
-        definicion: "Bolitas más grandes (como una nuez) obtenidas con sacabocados, similar a la noisette.", 
-        categoria: "corte",
-        visual: `<span class="bola"></span><span class="bola"></span><span class="bola"></span>`,
-        usos: ["🍽️ Guarniciones", "✨ Presentación de platos"]
-      },
-      { 
-        termino: "Mirepoix", 
-        definicion: "Corte grueso de verduras (cebolla, zanahoria, apio) en dados irregulares para fondos y salsas.", 
-        categoria: "corte",
-        visual: `<span class="cubo-lg"></span><span class="cubo-lg"></span><span class="cubo-lg"></span>`,
-        usos: ["🍖 Caldos", "🍲 Fondos", "🥘 Aromatizar"]
-      },
-      { 
-        termino: "Jardinière", 
-        definicion: "Bastones medianos de verduras (unos 4 cm × 4 mm), más gruesos que la juliana.", 
-        categoria: "corte",
-        visual: `<span class="tira"></span><span class="tira"></span><span class="tira"></span>`,
-        usos: ["🍟 Guarnición", "🥗 Ensaladas templadas"]
-      },
-      { 
-        termino: "Medialuna", 
+      // ========== CORTES (con procedimiento paso a paso) ==========
+      { termino: "Juliana", 
+        definicion: "Corte en tiras finas alargadas de aproximadamente 4-5 cm de largo y 1-2 mm de grosor.", 
+        procedimiento: [
+          "Lava y pela la verdura si es necesario.",
+          "Corta los extremos para dejar un rectángulo o cilindro regular.",
+          "Corta láminas finas de 2 mm de grosor a lo largo.",
+          "Apila 3-4 láminas y corta tiras del mismo grosor (2 mm).",
+          "Intenta mantener todas las tiras del mismo tamaño para cocción uniforme."
+        ],
+        categoria: "corte", visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`, usos: ["Ensaladas", "Arroces"] },
+      { termino: "Brunoise", 
+        definicion: "Corte en cubos muy pequeños de 2-3 mm por lado, generalmente partiendo de tiras juliana.", 
+        procedimiento: [
+          "Primero obtén tiras juliana finas (ver procedimiento de juliana).",
+          "Junta varias tiras alineadas.",
+          "Corta transversalmente en cubos de 2-3 mm.",
+          "Repite hasta procesar toda la verdura.",
+          "Ideal para que se integre en salsas sin notarse trozos grandes."
+        ],
+        categoria: "corte", visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`, usos: ["Salsas", "Rellenos"] },
+      { termino: "Macedonia", 
+        definicion: "Corte en cubos medianos de aproximadamente 5 mm por lado, usado para frutas o verduras.", 
+        procedimiento: [
+          "Pela y lava la fruta o verdura.",
+          "Corta en rodajas de 5 mm de grosor.",
+          "Corta cada rodaja en tiras de 5 mm de ancho.",
+          "Gira 90° y corta en cubos de 5 mm.",
+          "Todos los cubos deben ser parejos para que se cocinen o maceren igual."
+        ],
+        categoria: "corte", visual: `<span class="cubo-md"></span><span class="cubo-md"></span><span class="cubo-md"></span>`, usos: ["Ensaladas", "Sopas"] },
+      { termino: "Concassé", 
+        definicion: "Tomate pelado, sin semillas y picado en cubos pequeños, base de muchas salsas.", 
+        procedimiento: [
+          "Haz un corte en cruz en la base de cada tomate.",
+          "Escalda en agua hirviendo 20-30 segundos hasta que la piel se empiece a soltar.",
+          "Pasa a agua helada y pela la piel fácilmente.",
+          "Corta por la mitad y exprime suavemente para quitar semillas.",
+          "Pica la pulpa en cubos pequeños con cuchillo bien afilado."
+        ],
+        categoria: "corte", visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`, usos: ["Salsas", "Pastas"] },
+      { termino: "Chiffonade", 
+        definicion: "Corte de hojas (lechuga, espinaca, albahaca) en tiras muy finas enrollándolas.", 
+        procedimiento: [
+          "Lava y seca bien las hojas.",
+          "Apila 4-5 hojas una sobre otra, alineándolas.",
+          "Enróllalas firmemente como un cigarro.",
+          "Con cuchillo afilado, corta el rollo transversalmente en tiras finas de 2-3 mm.",
+          "Separa las tiras con los dedos para que queden sueltas y aireadas."
+        ],
+        categoria: "corte", visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`, usos: ["Ensaladas", "Guarniciones"] },
+      { termino: "Medialuna", 
         definicion: "Corte en rodajas semicirculares, típico de cebollas, plátanos o papas.", 
-        categoria: "corte",
-        visual: `<span class="media-luna"></span><span class="media-luna"></span><span class="media-luna"></span>`,
-        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥘 Guarniciones"]
-      },
-      { 
-        termino: "Ocho cuartos", 
-        definicion: "Corte en ocho gajos o trozos, habitual en tomates o patatas para guisos.", 
-        categoria: "corte",
-        visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`,
-        usos: ["🥘 Guisos", "🍅 Tomates", "🥔 Patatas asadas"]
-      },
-      { 
-        termino: "Emincé", 
-        definicion: "Corte en láminas finas y parejas, generalmente de cebolla, setas o carnes.", 
-        categoria: "corte",
-        visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`,
-        usos: ["🥗 Ensaladas", "🍄 Salteados", "🥩 Carpaccios"]
-      },
-      { 
-        termino: "Rodaja", 
-        definicion: "Corte transversal que da círculos (de zanahoria, pepino) de grosor variable.", 
-        categoria: "corte",
-        visual: `<span class="rodaja"></span><span class="rodaja"></span><span class="rodaja"></span>`,
-        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥒 Encurtidos"]
-      },
-      { 
-        termino: "Corte pluma", 
-        definicion: "Variante muy fina de la juliana, casi transparente, para ensaladas delicadas.", 
-        categoria: "corte",
-        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
-        usos: ["🥗 Ensaladas", "🐟 Pescados", "🌿 Decoración"]
-      },
-      { 
-        termino: "Corte en gajos", 
-        definicion: "Cortar en segmentos como los de una naranja, siguiendo las membranas naturales.", 
-        categoria: "corte",
-        visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`,
-        usos: ["🍊 Frutas", "🥗 Ensaladas", "🍰 Decoración"]
-      }
+        procedimiento: [
+          "Pela la verdura o fruta.",
+          "Corta por la mitad a lo largo (de polo a polo).",
+          "Coloca la mitad con la parte plana hacia abajo sobre la tabla.",
+          "Corta transversalmente en rodajas del grosor deseado.",
+          "Las rodajas saldrán con forma de media luna natural."
+        ],
+        categoria: "corte", visual: `<span class="media-luna"></span><span class="media-luna"></span><span class="media-luna"></span>`, usos: ["Cebollas", "Plátanos"] },
+      { termino: "Ocho cuartos", 
+        definicion: "Corte en ocho gajos o trozos iguales, habitual en tomates o patatas para guisos.", 
+        procedimiento: [
+          "Lava la verdura (tomate, papa).",
+          "Corta por la mitad verticalmente.",
+          "Cada mitad córtala de nuevo por la mitad (ya tienes 4 cuartos).",
+          "Cada cuarto córtalo una vez más por la mitad.",
+          "Obtendrás 8 trozos o gajos del mismo tamaño aproximado."
+        ],
+        categoria: "corte", visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`, usos: ["Guisos", "Tomates"] },
+      { termino: "Rodaja", 
+        definicion: "Corte transversal que produce círculos planos de grosor variable.", 
+        procedimiento: [
+          "Pela la verdura si es necesario.",
+          "Sujeta firmemente con la mano en garra (dedos doblados hacia adentro).",
+          "Corta transversalmente con cuchillo en movimiento de vaivén.",
+          "Mantén el mismo grosor en todas las rodajas.",
+          "Para pepinillos o encurtidos, usa mandolina para grosor exacto."
+        ],
+        categoria: "corte", visual: `<span class="rodaja"></span><span class="rodaja"></span><span class="rodaja"></span>`, usos: ["Ensaladas", "Sopas"] }
     ];
 
     // Elementos del DOM
@@ -553,6 +559,7 @@
     const modalTitulo = document.getElementById('modalTitulo');
     const modalDefinicion = document.getElementById('modalDefinicion');
     const modalVisual = document.getElementById('modalVisual');
+    const modalProcedimiento = document.getElementById('modalProcedimiento');
     const modalUsos = document.getElementById('modalUsos');
     const cerrarModal = document.getElementById('cerrarModal');
 
@@ -572,7 +579,6 @@
         nombre.textContent = item.termino;
         div.appendChild(nombre);
 
-        // Visual (siempre tiene)
         if (item.visual) {
           const visualDiv = document.createElement('div');
           visualDiv.className = item.categoria === 'tecnica' ? 'visual-tecnica' : 'visual-corte';
@@ -580,7 +586,6 @@
           div.appendChild(visualDiv);
         }
 
-        // Usos (si tiene)
         if (item.usos && item.usos.length > 0) {
           const usosDiv = document.createElement('div');
           usosDiv.className = 'usos-comida';
@@ -596,6 +601,22 @@
           modalTitulo.textContent = item.termino;
           modalDefinicion.textContent = item.definicion;
           modalVisual.innerHTML = item.visual || '';
+
+          // Construir procedimiento
+          modalProcedimiento.innerHTML = '';
+          if (item.procedimiento && item.procedimiento.length > 0) {
+            const titulo = document.createElement('h3');
+            titulo.textContent = item.categoria === 'tecnica' ? '🍳 Procedimiento' : '🔪 Cómo hacer este corte';
+            modalProcedimiento.appendChild(titulo);
+            const ol = document.createElement('ol');
+            item.procedimiento.forEach(paso => {
+              const li = document.createElement('li');
+              li.textContent = paso;
+              ol.appendChild(li);
+            });
+            modalProcedimiento.appendChild(ol);
+          }
+
           modalUsos.innerHTML = '';
           if (item.usos && item.usos.length > 0) {
             item.usos.forEach(uso => {
@@ -605,6 +626,7 @@
             });
           }
           modal.style.display = 'flex';
+          modal.querySelector('.modal-content').scrollTop = 0;
         });
         grid.appendChild(div);
       });
