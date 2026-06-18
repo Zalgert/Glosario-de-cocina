@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glosario de Cocina | Alexi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f3e5c9;
+      background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(210, 180, 140, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(200, 160, 120, 0.3) 0%, transparent 50%);
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: #3e2e1f;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 950px;
+      width: 100%;
+      background: #fdfaf3;
+      border: 8px double #8b5a2b;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3), inset 0 0 50px rgba(139, 90, 43, 0.1);
+      padding: 2rem;
+      border-radius: 4px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px dashed #b08968;
+      padding-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: normal;
+      letter-spacing: 2px;
+      color: #5c3a21;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+    }
+
+    header h1::before,
+    header h1::after {
+      content: " ❦ ";
+      font-size: 2rem;
+      color: #8b5a2b;
+    }
+
+    header p {
+      font-style: italic;
+      color: #7b5b3a;
+      margin-top: 0.5rem;
+    }
+
+    /* Botones de categoría */
+    .categorias {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-categoria {
+      background: #fff9ef;
+      border: 2px solid #b08968;
+      color: #5c3a21;
+      padding: 0.6rem 1.8rem;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all 0.25s;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-categoria:hover {
+      background: #f5e6d3;
+      border-color: #8b5a2b;
+    }
+
+    .btn-categoria.activo {
+      background: #d2b48c;
+      color: #2c1e0f;
+      border-color: #5c3a21;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Cuadrícula */
+    .glosario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
+
+    .casilla {
+      background: #fff9ef;
+      border: 2px solid #b08968;
+      border-radius: 6px;
+      padding: 0.8rem 0.5rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #5c3a21;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.15), inset 0 1px 0 #fff;
+      position: relative;
+      user-select: none;
+      font-family: Georgia, serif;
+      letter-spacing: 0.5px;
+    }
+
+    .casilla:hover {
+      background: #fff6e5;
+      border-color: #a0522d;
+      transform: translateY(-3px);
+      box-shadow: 5px 5px 12px rgba(0,0,0,0.2);
+    }
+
+    .casilla:active {
+      transform: translateY(1px);
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .casilla::after {
+      content: "📜";
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.9rem;
+      opacity: 0.4;
+    }
+
+    /* --- VISUALES CSS PARA TÉCNICAS Y CORTES --- */
+    .visual-tecnica {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin: 6px 0 4px;
+      min-height: 32px;
+      font-size: 1.2rem;
+    }
+
+    .visual-corte {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      margin: 6px 0 4px;
+      min-height: 28px;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: #6b5a44;
+    }
+
+    /* Formas para técnicas */
+    .fuego { display: inline-block; width: 14px; height: 18px; background: #e67e22; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform: rotate(45deg); }
+    .agua { display: inline-block; width: 16px; height: 12px; background: #3498db; border-radius: 0 0 50% 50%; }
+    .vapor { display: inline-block; width: 4px; height: 12px; background: #bdc3c7; border-radius: 50%; opacity: 0.6; }
+    .cuchara { display: inline-block; width: 20px; height: 8px; background: #7f8c8d; border-radius: 4px; position: relative; }
+    .cuchara::after { content: ''; position: absolute; left: 6px; top: -6px; width: 8px; height: 8px; background: #7f8c8d; border-radius: 50%; }
+    .cuchillo { display: inline-block; width: 18px; height: 4px; background: #95a5a6; border-radius: 2px; position: relative; }
+    .cuchillo::after { content: ''; position: absolute; right: -4px; top: -4px; width: 4px; height: 12px; background: #7f8c8d; border-radius: 1px; }
+    .olla { display: inline-block; width: 20px; height: 14px; background: #7f8c8d; border-radius: 0 0 6px 6px; border: 2px solid #5d6d7e; border-top: none; position: relative; }
+    .olla::after { content: ''; position: absolute; top: -6px; left: 2px; width: 16px; height: 4px; background: #5d6d7e; border-radius: 2px; }
+    .sarten { display: inline-block; width: 22px; height: 14px; background: #7f8c8d; border-radius: 50%; border: 2px solid #5d6d7e; position: relative; }
+    .sarten::after { content: ''; position: absolute; right: -10px; top: 4px; width: 10px; height: 4px; background: #5d6d7e; border-radius: 2px; }
+    .cubo { display: inline-block; width: 8px; height: 8px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .cubo-md { display: inline-block; width: 12px; height: 12px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .cubo-lg { display: inline-block; width: 16px; height: 16px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .tira { display: inline-block; width: 4px; height: 16px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .tira-fina { display: inline-block; width: 2px; height: 14px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .tira-gruesa { display: inline-block; width: 6px; height: 18px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .bola { display: inline-block; width: 14px; height: 14px; background: #8a7a5a; border-radius: 50%; border: 1px solid #5a4a2a; }
+    .bola-chica { display: inline-block; width: 10px; height: 10px; background: #8a7a5a; border-radius: 50%; border: 1px solid #5a4a2a; }
+    .media-luna { display: inline-block; width: 18px; height: 10px; background: #8a7a5a; border-radius: 0 0 18px 18px; border: 1px solid #5a4a2a; border-top: none; }
+    .gajo { display: inline-block; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 16px solid #8a7a5a; }
+    .rodaja { display: inline-block; width: 16px; height: 16px; background: #8a7a5a; border-radius: 50%; border: 2px solid #5a4a2a; }
+    .lamina { display: inline-block; width: 16px; height: 3px; background: #8a7a5a; border: 1px solid #5a4a2a; border-radius: 1px; }
+    .circulo { display: inline-block; width: 12px; height: 12px; border: 2px solid #8a7a5a; border-radius: 50%; }
+    .cuadrado { display: inline-block; width: 12px; height: 12px; border: 2px solid #8a7a5a; }
+    .triangulo { display: inline-block; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 14px solid #8a7a5a; }
+    .rombo { display: inline-block; width: 12px; height: 12px; background: #8a7a5a; transform: rotate(45deg); border: 1px solid #5a4a2a; }
+    .espiral { display: inline-block; width: 12px; height: 12px; border: 3px solid #8a7a5a; border-radius: 50%; border-top-color: transparent; animation: spin 2s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .corazon { display: inline-block; width: 14px; height: 14px; background: #8a7a5a; transform: rotate(45deg); border-radius: 50% 0 50% 0; }
+    .estrella { display: inline-block; font-size: 16px; color: #8a7a5a; }
+    .flecha { display: inline-block; width: 14px; height: 4px; background: #8a7a5a; position: relative; }
+    .flecha::after { content: ''; position: absolute; right: -6px; top: -4px; width: 0; height: 0; border-left: 6px solid #8a7a5a; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+    .linea { display: inline-block; width: 20px; height: 2px; background: #8a7a5a; }
+    .punto { display: inline-block; width: 6px; height: 6px; background: #8a7a5a; border-radius: 50%; }
+
+    /* --- Usos en comida --- */
+    .usos-comida {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 5px;
+      font-size: 0.65rem;
+      font-weight: normal;
+    }
+
+    .usos-comida span {
+      background: #ede4d5;
+      padding: 1px 8px;
+      border-radius: 20px;
+      border: 1px solid #c0a98a;
+      color: #4a3a2a;
+      font-size: 0.6rem;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 20, 10, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-content {
+      background: #fef7e9;
+      max-width: 500px;
+      width: 90%;
+      padding: 2rem;
+      border: 6px double #8b5a2b;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(139, 90, 43, 0.2);
+      position: relative;
+      font-family: Georgia, 'Times New Roman', serif;
+      animation: abrir 0.3s ease;
+    }
+
+    @keyframes abrir {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      font-size: 2rem;
+      color: #5c3a21;
+      text-align: center;
+      border-bottom: 2px dotted #b08968;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #3e2e1f;
+    }
+
+    .modal-visual {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 12px 0;
+      font-size: 1.6rem;
+    }
+    .modal-usos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .modal-usos span {
+      background: #ede4d5;
+      padding: 2px 14px;
+      border-radius: 30px;
+      border: 1px solid #b08968;
+      font-size: 0.9rem;
+      color: #4a3a2a;
+    }
+
+    .cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.8rem;
+      color: #8b5a2b;
+      cursor: pointer;
+      font-weight: bold;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .cerrar-modal:hover {
+      color: #a0522d;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: #7b5b3a;
+      border-top: 1px dashed #b08968;
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .casilla {
+        font-size: 1rem;
+      }
+      .glosario-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Glosario de Cocina</h1>
+      <p>Por Alexi — Palabras técnicas & Cortes profesionales</p>
+    </header>
+
+    <div class="categorias">
+      <button class="btn-categoria activo" data-categoria="todas">📖 Todas</button>
+      <button class="btn-categoria" data-categoria="tecnica">🍳 Técnicas</button>
+      <button class="btn-categoria" data-categoria="corte">🔪 Cortes</button>
+    </div>
+
+    <div class="glosario-grid" id="glosarioGrid"></div>
+
+    <footer>
+      Hecho con 🍳 y pasión por la cocina
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <button class="cerrar-modal" id="cerrarModal">&times;</button>
+      <h2 id="modalTitulo"></h2>
+      <div id="modalVisual" class="modal-visual"></div>
+      <p id="modalDefinicion"></p>
+      <div id="modalUsos" class="modal-usos"></div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- GLOSARIO COMPLETO CON 40 TÉRMINOS ----------
+    const glosario = [
+      // ========== TÉCNICAS (con visuales CSS) ==========
+      { termino: "Abrillantar", definicion: "Dar brillo a un alimento con jalea, gelatina o almíbar.", categoria: "tecnica", visual: `<span class="estrella">✦</span><span class="estrella">✦</span><span class="estrella">✦</span>`, usos: ["✨ Acabados", "🍰 Repostería"] },
+      { termino: "Acaramelar", definicion: "Cubrir con caramelo o cocinar hasta que se forme caramelo natural.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍮 Postres", "🍎 Frutas"] },
+      { termino: "Adobar", definicion: "Poner carnes o pescados en un aliño para conservar y dar sabor.", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
+      { termino: "Ahumar", definicion: "Exponer alimentos al humo de maderas aromáticas para cocerlos o saborizarlos.", categoria: "tecnica", visual: `<span class="vapor"></span><span class="vapor"></span><span class="vapor"></span>`, usos: ["🥓 Carnes", "🐟 Pescados", "🧀 Quesos"] },
+      { termino: "Amasar", definicion: "Trabajar masas con las manos o máquina para desarrollar gluten.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🍞 Panes", "🍕 Pizzas"] },
+      { termino: "Baño María", definicion: "Cocinar un alimento dentro de un recipiente sumergido en agua caliente, suave y uniforme.", categoria: "tecnica", visual: `<span class="olla"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🍮 Cremas", "🍫 Chocolates"] },
+      { termino: "Batir", definicion: "Agitar enérgicamente una mezcla para incorporar aire o homogeneizar.", categoria: "tecnica", visual: `<span class="flecha"></span><span class="flecha"></span><span class="flecha"></span>`, usos: ["🥚 Huevos", "🥛 Nata", "🍰 Masas"] },
+      { termino: "Blanquear", definicion: "Cocer brevemente en agua hirviendo y luego sumergir en agua helada para detener la cocción.", categoria: "tecnica", visual: `<span class="agua"></span><span class="circulo"></span><span class="agua"></span>`, usos: ["🥗 Verduras", "🥦 Conservas"] },
+      { termino: "Bouquet garni", definicion: "Atado de hierbas aromáticas (laurel, tomillo, perejil) usado para dar sabor a caldos.", categoria: "tecnica", visual: `<span class="linea"></span><span class="linea"></span><span class="linea"></span>`, usos: ["🍲 Caldos", "🥘 Estofados"] },
+      { termino: "Brasear", definicion: "Dorar un alimento y luego cocinarlo lentamente en líquido aromático, con tapa.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="olla"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍗 Aves"] },
+      { termino: "Caramelizar", definicion: "Cocinar azúcar hasta que se derrita y tome color, o lograr que los azúcares naturales de un alimento se doren.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="circulo"></span><span class="fuego"></span>`, usos: ["🍮 Postres", "🧅 Cebollas"] },
+      { termino: "Clarificar", definicion: "Eliminar impurezas de un líquido, como al hacer mantequilla clarificada o caldos transparentes.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="linea"></span><span class="circulo"></span>`, usos: ["🧈 Mantequilla", "🍲 Caldos"] },
+      { termino: "Confitar", definicion: "Cocer lentamente un alimento sumergido en grasa (pato, cerdo) a baja temperatura.", categoria: "tecnica", visual: `<span class="olla"></span><span class="fuego"></span><span class="olla"></span>`, usos: ["🦆 Pato", "🥩 Carnes"] },
+      { termino: "Desglasar", definicion: "Añadir vino, caldo o agua a una sartén caliente para disolver los jugos caramelizados del fondo.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="agua"></span><span class="sarten"></span>`, usos: ["🥩 Carnes", "🍷 Salsas"] },
+      { termino: "Deshuesar", definicion: "Quitar los huesos de carnes, aves o pescados.", categoria: "tecnica", visual: `<span class="cuchillo"></span><span class="cuchillo"></span><span class="cuchillo"></span>`, usos: ["🍗 Aves", "🐟 Pescados"] },
+      { termino: "Dorar", definicion: "Cocinar un alimento en grasa caliente hasta que adquiera un color dorado en el exterior.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="sarten"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍞 Panes"] },
+      { termino: "Emplatar", definicion: "Disponer los alimentos en el plato de forma estética antes de servir.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍽️ Presentación", "✨ Decoración"] },
+      { termino: "Emulsionar", definicion: "Mezclar dos líquidos que no se juntan (aceite y vinagre) hasta lograr una textura homogénea.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🥗 Ensaladas", "🥫 Salsas"] },
+      { termino: "Escalfar", definicion: "Cocer en líquido justo por debajo del punto de ebullición (ej. huevo escalfado).", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🥚 Huevos", "🐟 Pescados"] },
+      { termino: "Espolvorear", definicion: "Esparcir un ingrediente en polvo (azúcar, canela) sobre una preparación.", categoria: "tecnica", visual: `<span class="punto"></span><span class="punto"></span><span class="punto"></span>`, usos: ["🍰 Repostería", "☕ Bebidas"] },
+      { termino: "Espumar", definicion: "Retirar la espuma o impurezas que suben a la superficie de caldos o mermeladas.", categoria: "tecnica", visual: `<span class="cuchara"></span><span class="cuchara"></span><span class="cuchara"></span>`, usos: ["🍲 Caldos", "🍯 Mermeladas"] },
+      { termino: "Estofar", definicion: "Cocinar un alimento a fuego lento con poco líquido y verduras, en recipiente cerrado.", categoria: "tecnica", visual: `<span class="olla"></span><span class="fuego"></span><span class="olla"></span>`, usos: ["🥩 Carnes", "🥘 Guisos"] },
+      { termino: "Fermentar", definicion: "Transformar alimentos mediante la acción de levaduras o bacterias (pan, yogur, vino).", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🍞 Panes", "🍷 Vinos", "🥛 Yogures"] },
+      { termino: "Filetear", definicion: "Cortar en filetes o lonjas finas.", categoria: "tecnica", visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
+      { termino: "Flamber", definicion: "Rociar con licor y prender fuego para realzar sabores y eliminar el alcohol.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="fuego"></span><span class="fuego"></span>`, usos: ["🥩 Carnes", "🍮 Postres"] },
+      { termino: "Glasear", definicion: "Cubrir con almíbar, gelatina o jugo reducido para dar brillo y sabor.", categoria: "tecnica", visual: `<span class="estrella">✦</span><span class="estrella">✦</span><span class="estrella">✦</span>`, usos: ["🍰 Repostería", "🥕 Verduras"] },
+      { termino: "Gratinar", definicion: "Dorar la superficie de un plato con calor superior, generalmente con queso o pan rallado.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="linea"></span><span class="fuego"></span>`, usos: ["🧀 Gratinados", "🍝 Pastas"] },
+      { termino: "Infusionar", definicion: "Extraer los aromas y sabores de hierbas o especias sumergiéndolas en un líquido caliente.", categoria: "tecnica", visual: `<span class="agua"></span><span class="linea"></span><span class="agua"></span>`, usos: ["☕ Tés", "🌿 Hierbas"] },
+      { termino: "Leudar", definicion: "Proceso de fermentación de masas por levadura, liberando gas y aumentando el volumen.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🍞 Panes", "🍕 Pizzas"] },
+      { termino: "Macerar", definicion: "Dejar un alimento en un líquido frío (vino, licor, azúcar) para que absorba sabor.", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🍎 Frutas", "🥩 Carnes"] },
+      { termino: "Marinar", definicion: "Sumergir carnes o pescados en un líquido condimentado para ablandar y dar sabor.", categoria: "tecnica", visual: `<span class="agua"></span><span class="cuadrado"></span><span class="agua"></span>`, usos: ["🥩 Carnes", "🐟 Pescados"] },
+      { termino: "Mise en place", definicion: "Preparar y medir todos los ingredientes antes de empezar a cocinar (todo en su lugar).", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🔪 Organización", "⏱️ Eficiencia"] },
+      { termino: "Montar", definicion: "Batir nata o claras de huevo hasta que alcancen consistencia firme.", categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["🥛 Nata", "🥚 Huevos"] },
+      { termino: "Napar", definicion: "Cubrir completamente un alimento con una salsa espesa.", categoria: "tecnica", visual: `<span class="circulo"></span><span class="circulo"></span><span class="circulo"></span>`, usos: ["🥩 Carnes", "🍝 Pastas"] },
+      { termino: "Pochar", definicion: "Cocer suavemente en un líquido a baja temperatura, sin que hierva.", categoria: "tecnica", visual: `<span class="agua"></span><span class="agua"></span><span class="agua"></span>`, usos: ["🥚 Huevos", "🐟 Pescados"] },
+      { termino: "Rebozar", definicion: "Cubrir un alimento con harina, huevo y pan rallado antes de freír.", categoria: "tecnica", visual: `<span class="cuadrado"></span><span class="cuadrado"></span><span class="cuadrado"></span>`, usos: ["🍗 Pollo", "🐟 Pescados"] },
+      { termino: "Reducir", definicion: "Hervir un líquido para concentrar sabores y espesar la preparación.", categoria: "tecnica", visual: `<span class="fuego"></span><span class="agua"></span><span class="fuego"></span>`, usos: ["🍷 Salsas", "🍲 Caldos"] },
+      { termino: "Saltear", definicion: "Cocinar rápidamente en poca grasa a fuego alto, moviendo constantemente.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["🥗 Verduras", "🍄 Setas"] },
+      { termino: "Sofreír", definicion: "Freír ligeramente a fuego medio-bajo hasta que el alimento esté tierno y aromático.", categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["🧅 Cebollas", "🧄 Ajos"] },
+      { termino: "Templar", definicion: "Igualar la temperatura de dos mezclas añadiendo poco a poco la caliente a la fría.", categoria: "tecnica", visual: `<span class="linea"></span><span class="linea"></span><span class="linea"></span>`, usos: ["🥚 Huevos", "🍫 Chocolates"] },
+
+      // ========== CORTES (con visuales CSS y usos) ==========
+      { 
+        termino: "Juliana", 
+        definicion: "Corte en tiras finas alargadas de aproximadamente 4‑5 cm de largo y 1‑2 mm de grosor.", 
+        categoria: "corte",
+        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
+        usos: ["🥗 Ensaladas", "🍚 Arroces", "🐟 Rellenos"]
+      },
+      { 
+        termino: "Brunoise", 
+        definicion: "Corte en cubos muy pequeños de 2‑3 mm por lado, generalmente a partir de la juliana.", 
+        categoria: "corte",
+        visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`,
+        usos: ["🥗 Ensaladas", "🥫 Salsas", "🥟 Rellenos", "🧂 Aderezos"]
+      },
+      { 
+        termino: "Macedonia", 
+        definicion: "Corte en cubos medianos (aprox. 5 mm) usado para frutas o verduras.", 
+        categoria: "corte",
+        visual: `<span class="cubo-md"></span><span class="cubo-md"></span><span class="cubo-md"></span>`,
+        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥟 Rellenos"]
+      },
+      { 
+        termino: "Chiffonade", 
+        definicion: "Corte de hojas (lechuga, espinaca) en tiras muy finas enrollando las hojas y cortando transversalmente.", 
+        categoria: "corte",
+        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
+        usos: ["🥗 Ensaladas", "🌿 Guarniciones", "🥘 Rehogados"]
+      },
+      { 
+        termino: "Bâtonnet", 
+        definicion: "Bastones alargados de unos 5 cm × 6 mm × 6 mm, típico para papas fritas.", 
+        categoria: "corte",
+        visual: `<span class="tira-gruesa"></span><span class="tira-gruesa"></span><span class="tira-gruesa"></span>`,
+        usos: ["🍟 Papas fritas", "🥗 Guarniciones"]
+      },
+      { 
+        termino: "Paysanne", 
+        definicion: "Corte en láminas finas y formas geométricas irregulares (triángulos, rectángulos).", 
+        categoria: "corte",
+        visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`,
+        usos: ["🍲 Sopas", "🥘 Guisos", "🥗 Ensaladas"]
+      },
+      { 
+        termino: "Concassé", 
+        definicion: "Tomate pelado, sin semillas y picado en cubos pequeños.", 
+        categoria: "corte",
+        visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`,
+        usos: ["🍅 Salsas", "🍝 Pastas", "🥫 Conservas"]
+      },
+      { 
+        termino: "Torneado", 
+        definicion: "Corte decorativo que da forma ovalada y alargada (como balón de rugby) a verduras.", 
+        categoria: "corte",
+        visual: `<span style="display:inline-block;width:20px;height:10px;background:#8a7a5a;border-radius:50%;border:1px solid #5a4a2a;"></span>`,
+        usos: ["🍽️ Presentación", "🥘 Guarniciones elegantes"]
+      },
+      { 
+        termino: "Noisette", 
+        definicion: "Bolitas del tamaño de una avellana sacadas con cuchara sacabocados, en patatas o frutas.", 
+        categoria: "corte",
+        visual: `<span class="bola-chica"></span><span class="bola-chica"></span><span class="bola-chica"></span>`,
+        usos: ["🍽️ Guarniciones", "✨ Presentación de platos"]
+      },
+      { 
+        termino: "Parisienne", 
+        definicion: "Bolitas más grandes (como una nuez) obtenidas con sacabocados, similar a la noisette.", 
+        categoria: "corte",
+        visual: `<span class="bola"></span><span class="bola"></span><span class="bola"></span>`,
+        usos: ["🍽️ Guarniciones", "✨ Presentación de platos"]
+      },
+      { 
+        termino: "Mirepoix", 
+        definicion: "Corte grueso de verduras (cebolla, zanahoria, apio) en dados irregulares para fondos y salsas.", 
+        categoria: "corte",
+        visual: `<span class="cubo-lg"></span><span class="cubo-lg"></span><span class="cubo-lg"></span>`,
+        usos: ["🍖 Caldos", "🍲 Fondos", "🥘 Aromatizar"]
+      },
+      { 
+        termino: "Jardinière", 
+        definicion: "Bastones medianos de verduras (unos 4 cm × 4 mm), más gruesos que la juliana.", 
+        categoria: "corte",
+        visual: `<span class="tira"></span><span class="tira"></span><span class="tira"></span>`,
+        usos: ["🍟 Guarnición", "🥗 Ensaladas templadas"]
+      },
+      { 
+        termino: "Medialuna", 
+        definicion: "Corte en rodajas semicirculares, típico de cebollas, plátanos o papas.", 
+        categoria: "corte",
+        visual: `<span class="media-luna"></span><span class="media-luna"></span><span class="media-luna"></span>`,
+        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥘 Guarniciones"]
+      },
+      { 
+        termino: "Ocho cuartos", 
+        definicion: "Corte en ocho gajos o trozos, habitual en tomates o patatas para guisos.", 
+        categoria: "corte",
+        visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`,
+        usos: ["🥘 Guisos", "🍅 Tomates", "🥔 Patatas asadas"]
+      },
+      { 
+        termino: "Emincé", 
+        definicion: "Corte en láminas finas y parejas, generalmente de cebolla, setas o carnes.", 
+        categoria: "corte",
+        visual: `<span class="lamina"></span><span class="lamina"></span><span class="lamina"></span>`,
+        usos: ["🥗 Ensaladas", "🍄 Salteados", "🥩 Carpaccios"]
+      },
+      { 
+        termino: "Rodaja", 
+        definicion: "Corte transversal que da círculos (de zanahoria, pepino) de grosor variable.", 
+        categoria: "corte",
+        visual: `<span class="rodaja"></span><span class="rodaja"></span><span class="rodaja"></span>`,
+        usos: ["🥗 Ensaladas", "🍲 Sopas", "🥒 Encurtidos"]
+      },
+      { 
+        termino: "Corte pluma", 
+        definicion: "Variante muy fina de la juliana, casi transparente, para ensaladas delicadas.", 
+        categoria: "corte",
+        visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`,
+        usos: ["🥗 Ensaladas", "🐟 Pescados", "🌿 Decoración"]
+      },
+      { 
+        termino: "Corte en gajos", 
+        definicion: "Cortar en segmentos como los de una naranja, siguiendo las membranas naturales.", 
+        categoria: "corte",
+        visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`,
+        usos: ["🍊 Frutas", "🥗 Ensaladas", "🍰 Decoración"]
+      }
+    ];
+
+    // Elementos del DOM
+    const grid = document.getElementById('glosarioGrid');
+    const botonesCategoria = document.querySelectorAll('.btn-categoria');
+    const modal = document.getElementById('modal');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalDefinicion = document.getElementById('modalDefinicion');
+    const modalVisual = document.getElementById('modalVisual');
+    const modalUsos = document.getElementById('modalUsos');
+    const cerrarModal = document.getElementById('cerrarModal');
+
+    let categoriaActiva = 'todas';
+
+    function renderGlosario(categoria) {
+      grid.innerHTML = '';
+      const filtrados = categoria === 'todas' 
+        ? glosario 
+        : glosario.filter(item => item.categoria === categoria);
+
+      filtrados.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'casilla';
+
+        const nombre = document.createElement('div');
+        nombre.textContent = item.termino;
+        div.appendChild(nombre);
+
+        // Visual (siempre tiene)
+        if (item.visual) {
+          const visualDiv = document.createElement('div');
+          visualDiv.className = item.categoria === 'tecnica' ? 'visual-tecnica' : 'visual-corte';
+          visualDiv.innerHTML = item.visual;
+          div.appendChild(visualDiv);
+        }
+
+        // Usos (si tiene)
+        if (item.usos && item.usos.length > 0) {
+          const usosDiv = document.createElement('div');
+          usosDiv.className = 'usos-comida';
+          item.usos.forEach(uso => {
+            const span = document.createElement('span');
+            span.textContent = uso;
+            usosDiv.appendChild(span);
+          });
+          div.appendChild(usosDiv);
+        }
+
+        div.addEventListener('click', () => {
+          modalTitulo.textContent = item.termino;
+          modalDefinicion.textContent = item.definicion;
+          modalVisual.innerHTML = item.visual || '';
+          modalUsos.innerHTML = '';
+          if (item.usos && item.usos.length > 0) {
+            item.usos.forEach(uso => {
+              const span = document.createElement('span');
+              span.textContent = uso;
+              modalUsos.appendChild(span);
+            });
+          }
+          modal.style.display = 'flex';
+        });
+        grid.appendChild(div);
+      });
+    }
+
+    botonesCategoria.forEach(btn => {
+      btn.addEventListener('click', () => {
+        botonesCategoria.forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        categoriaActiva = btn.dataset.categoria;
+        renderGlosario(categoriaActiva);
+      });
+    });
+
+    cerrarModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      }
+    });
+
+    renderGlosario('todas');
+  </script>
+</body>
+</html>
