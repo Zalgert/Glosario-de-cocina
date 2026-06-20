@@ -1,1061 +1,660 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glosario de Cocina | 1-3 Turismo</title>
-    <style>
-        :root {
-            --bg-parchment: #f3e5c9;
-            --bg-card: #fff9ef;
-            --bg-modal: #fef7e9;
-            --border-double: #8b5a2b;
-            --border-light: #b08968;
-            --text-dark: #3e2e1f;
-            --text-heading: #5c3a21;
-            --text-muted: #7b5b3a;
-            --accent: #d2b48c;
-            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.12);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 0 40px rgba(0, 0, 0, 0.5);
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-pill: 30px;
-            --transition: 0.25s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glosario de Cocina | 1-3 Turismo </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      background: #f3e5c9;
+      background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(210, 180, 140, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(200, 160, 120, 0.3) 0%, transparent 50%);
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: #3e2e1f;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
 
-        body {
-            background: var(--bg-parchment);
-            background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(210, 180, 140, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(200, 160, 120, 0.3) 0%, transparent 50%);
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 2rem 1rem;
-            line-height: 1.5;
-        }
+    .container {
+      max-width: 950px;
+      width: 100%;
+      background: #fdfaf3;
+      border: 8px double #8b5a2b;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3), inset 0 0 50px rgba(139, 90, 43, 0.1);
+      padding: 2rem;
+      border-radius: 4px;
+    }
 
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            background: #fdfaf3;
-            border: 8px double var(--border-double);
-            box-shadow: var(--shadow-lg), inset 0 0 50px rgba(139, 90, 43, 0.1);
-            padding: 2rem;
-            border-radius: 4px;
-        }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px dashed #b08968;
+      padding-bottom: 1.5rem;
+    }
 
-        /* ========== HEADER ========== */
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px dashed var(--border-light);
-            padding-bottom: 1.5rem;
-        }
+    header h1 {
+      font-size: 3rem;
+      font-weight: normal;
+      letter-spacing: 2px;
+      color: #5c3a21;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+    }
 
-        header h1 {
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: normal;
-            letter-spacing: 2px;
-            color: var(--text-heading);
-            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
-            margin: 0 0 0.5rem;
-        }
+    header h1::before,
+    header h1::after {
+      content: " ❦ ";
+      font-size: 2rem;
+      color: #8b5a2b;
+    }
 
-        header p {
-            font-style: italic;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
+    header p {
+      font-style: italic;
+      color: #7b5b3a;
+      margin-top: 0.5rem;
+    }
 
-        /* ========== CATEGORY BUTTONS ========== */
-        .categorias {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
+    .categorias {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
 
-        .btn-categoria {
-            background: var(--bg-card);
-            border: 2px solid var(--border-light);
-            color: var(--text-heading);
-            padding: 0.6rem 1.8rem;
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 1.05rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: var(--radius-pill);
-            transition: all var(--transition);
-            box-shadow: var(--shadow-sm);
-            letter-spacing: 0.5px;
-            outline-offset: 3px;
-        }
+    .btn-categoria {
+      background: #fff9ef;
+      border: 2px solid #b08968;
+      color: #5c3a21;
+      padding: 0.6rem 1.8rem;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all 0.25s;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+      letter-spacing: 0.5px;
+    }
 
-        .btn-categoria:hover {
-            background: #f5e6d3;
-            border-color: var(--border-double);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-        .btn-categoria:focus-visible {
-            outline: 3px solid var(--border-double);
-            outline-offset: 4px;
-        }
-        .btn-categoria:active {
-            transform: translateY(0);
-            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .btn-categoria:hover {
+      background: #f5e6d3;
+      border-color: #8b5a2b;
+    }
 
-        .btn-categoria.activo {
-            background: var(--accent);
-            color: #2c1e0f;
-            border-color: var(--text-heading);
-            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
-            cursor: default;
-        }
-        .btn-categoria.activo:hover {
-            transform: none;
-            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .btn-categoria.activo {
+      background: #d2b48c;
+      color: #2c1e0f;
+      border-color: #5c3a21;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
+    }
 
-        /* ========== GLOSSARY GRID ========== */
-        .glosario-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.2rem;
-            margin: 2rem 0;
-            list-style: none;
-            padding: 0;
-        }
+    .glosario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
 
-        .casilla {
-            all: unset;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--bg-card);
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            padding: 1rem 0.5rem 0.8rem;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--text-heading);
-            cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15), inset 0 1px 0 #fff;
-            position: relative;
-            user-select: none;
-            font-family: Georgia, serif;
-            letter-spacing: 0.5px;
-            width: 100%;
-            outline-offset: 3px;
-        }
+    .casilla {
+      background: #fff9ef;
+      border: 2px solid #b08968;
+      border-radius: 6px;
+      padding: 0.8rem 0.5rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #5c3a21;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.15), inset 0 1px 0 #fff;
+      position: relative;
+      user-select: none;
+      font-family: Georgia, serif;
+      letter-spacing: 0.5px;
+    }
 
-        .casilla:hover {
-            background: #fff6e5;
-            border-color: #a0522d;
-            transform: translateY(-4px);
-            box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.22);
-        }
-        .casilla:focus-visible {
-            outline: 3px solid #a0522d;
-            outline-offset: 4px;
-            transform: translateY(-3px);
-        }
-        .casilla:active {
-            transform: translateY(1px);
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .casilla:hover {
+      background: #fff6e5;
+      border-color: #a0522d;
+      transform: translateY(-3px);
+      box-shadow: 5px 5px 12px rgba(0,0,0,0.2);
+    }
 
-        .casilla .termino-nombre {
-            margin-bottom: 4px;
-            font-size: 1.1rem;
-        }
+    .casilla:active {
+      transform: translateY(1px);
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
 
-        .visual-tecnica,
-        .visual-corte,
-        .visual-comida {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            margin: 8px 0 4px;
-            min-height: 40px;
-            flex-wrap: wrap;
-        }
-        .visual-comida img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #b08968;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
+    .casilla::after {
+      content: "📜";
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.9rem;
+      opacity: 0.4;
+    }
 
-        /* ========== CSS ICONS (NO EMOJIS) ========== */
-        .fuego {
-            display: inline-block;
-            width: 18px;
-            height: 22px;
-            background: #e67e22;
-            border-radius: 50% 0 50% 50%;
-            transform: rotate(45deg);
-            position: relative;
-            box-shadow: 0 0 4px #f39c12;
-        }
-        .fuego::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 4px;
-            width: 10px;
-            height: 14px;
-            background: #f1c40f;
-            border-radius: 50% 0 50% 50%;
-            transform: rotate(-10deg);
-        }
+    .visual-tecnica {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin: 6px 0 4px;
+      min-height: 32px;
+      font-size: 1.2rem;
+    }
 
-        .agua {
-            display: inline-block;
-            width: 16px;
-            height: 20px;
-            background: #3498db;
-            border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
-            transform: rotate(45deg);
-            box-shadow: inset -2px -2px 0 #2980b9;
-        }
+    .visual-corte {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      margin: 6px 0 4px;
+      min-height: 28px;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: #6b5a44;
+    }
 
-        .sarten {
-            display: inline-block;
-            width: 24px;
-            height: 16px;
-            background: #95a5a6;
-            border-radius: 50%;
-            border: 2px solid #5d6d7e;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .sarten::after {
-            content: '';
-            position: absolute;
-            right: -12px;
-            top: 5px;
-            width: 14px;
-            height: 5px;
-            background: #5d6d7e;
-            border-radius: 2px;
-            box-shadow: 0 1px 0 #7f8c8d;
-        }
+    .fuego { display: inline-block; width: 14px; height: 18px; background: #e67e22; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform: rotate(45deg); }
+    .agua { display: inline-block; width: 16px; height: 12px; background: #3498db; border-radius: 0 0 50% 50%; }
+    .vapor { display: inline-block; width: 4px; height: 12px; background: #bdc3c7; border-radius: 50%; opacity: 0.6; }
+    .cuchara { display: inline-block; width: 20px; height: 8px; background: #7f8c8d; border-radius: 4px; position: relative; }
+    .cuchara::after { content: ''; position: absolute; left: 6px; top: -6px; width: 8px; height: 8px; background: #7f8c8d; border-radius: 50%; }
+    .cuchillo { display: inline-block; width: 18px; height: 4px; background: #95a5a6; border-radius: 2px; position: relative; }
+    .cuchillo::after { content: ''; position: absolute; right: -4px; top: -4px; width: 4px; height: 12px; background: #7f8c8d; border-radius: 1px; }
+    .olla { display: inline-block; width: 20px; height: 14px; background: #7f8c8d; border-radius: 0 0 6px 6px; border: 2px solid #5d6d7e; border-top: none; position: relative; }
+    .olla::after { content: ''; position: absolute; top: -6px; left: 2px; width: 16px; height: 4px; background: #5d6d7e; border-radius: 2px; }
+    .sarten { display: inline-block; width: 22px; height: 14px; background: #7f8c8d; border-radius: 50%; border: 2px solid #5d6d7e; position: relative; }
+    .sarten::after { content: ''; position: absolute; right: -10px; top: 4px; width: 10px; height: 4px; background: #5d6d7e; border-radius: 2px; }
+    .cubo { display: inline-block; width: 8px; height: 8px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .cubo-md { display: inline-block; width: 12px; height: 12px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .cubo-lg { display: inline-block; width: 16px; height: 16px; background: #8b7a5a; border: 1px solid #5c4a2a; }
+    .tira { display: inline-block; width: 4px; height: 16px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .tira-fina { display: inline-block; width: 2px; height: 14px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .tira-gruesa { display: inline-block; width: 6px; height: 18px; background: #7b8a5a; border: 1px solid #4a5a2a; border-radius: 1px; }
+    .bola { display: inline-block; width: 14px; height: 14px; background: #8a7a5a; border-radius: 50%; border: 1px solid #5a4a2a; }
+    .bola-chica { display: inline-block; width: 10px; height: 10px; background: #8a7a5a; border-radius: 50%; border: 1px solid #5a4a2a; }
+    .media-luna { display: inline-block; width: 18px; height: 10px; background: #8a7a5a; border-radius: 0 0 18px 18px; border: 1px solid #5a4a2a; border-top: none; }
+    .gajo { display: inline-block; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 16px solid #8a7a5a; }
+    .rodaja { display: inline-block; width: 16px; height: 16px; background: #8a7a5a; border-radius: 50%; border: 2px solid #5a4a2a; }
+    .lamina { display: inline-block; width: 16px; height: 3px; background: #8a7a5a; border: 1px solid #5a4a2a; border-radius: 1px; }
+    .circulo { display: inline-block; width: 12px; height: 12px; border: 2px solid #8a7a5a; border-radius: 50%; }
+    .cuadrado { display: inline-block; width: 12px; height: 12px; border: 2px solid #8a7a5a; }
+    .triangulo { display: inline-block; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 14px solid #8a7a5a; }
+    .rombo { display: inline-block; width: 12px; height: 12px; background: #8a7a5a; transform: rotate(45deg); border: 1px solid #5a4a2a; }
+    .espiral { display: inline-block; width: 12px; height: 12px; border: 3px solid #8a7a5a; border-radius: 50%; border-top-color: transparent; animation: spin 2s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .estrella { display: inline-block; font-size: 16px; color: #8a7a5a; }
+    .flecha { display: inline-block; width: 14px; height: 4px; background: #8a7a5a; position: relative; }
+    .flecha::after { content: ''; position: absolute; right: -6px; top: -4px; width: 0; height: 0; border-left: 6px solid #8a7a5a; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+    .linea { display: inline-block; width: 20px; height: 2px; background: #8a7a5a; }
+    .punto { display: inline-block; width: 6px; height: 6px; background: #8a7a5a; border-radius: 50%; }
 
-        .olla {
-            display: inline-block;
-            width: 24px;
-            height: 18px;
-            background: #7f8c8d;
-            border-radius: 0 0 8px 8px;
-            border: 2px solid #5d6d7e;
-            border-top: none;
-            position: relative;
-            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.2);
-        }
-        .olla::before {
-            content: '';
-            position: absolute;
-            top: -7px;
-            left: -2px;
-            width: 28px;
-            height: 6px;
-            background: #5d6d7e;
-            border-radius: 3px 3px 0 0;
-        }
-        .olla::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 5px;
-            width: 18px;
-            height: 4px;
-            background: #7f8c8d;
-            border-radius: 2px;
-        }
+    .usos-comida {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 5px;
+      font-size: 0.65rem;
+      font-weight: normal;
+    }
 
-        .cuchillo {
-            display: inline-block;
-            width: 20px;
-            height: 5px;
-            background: #bdc3c7;
-            border-radius: 1px 1px 0 0;
-            position: relative;
-            box-shadow: 0 1px 0 #95a5a6;
-        }
-        .cuchillo::after {
-            content: '';
-            position: absolute;
-            right: -6px;
-            top: -6px;
-            width: 6px;
-            height: 16px;
-            background: #7f8c8d;
-            border-radius: 2px 2px 0 0;
-            box-shadow: 0 0 0 2px #5d6d7e;
-        }
+    .usos-comida span {
+      background: #ede4d5;
+      padding: 1px 8px;
+      border-radius: 20px;
+      border: 1px solid #c0a98a;
+      color: #4a3a2a;
+      font-size: 0.6rem;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
 
-        .cuchara {
-            display: inline-block;
-            width: 24px;
-            height: 10px;
-            background: #95a5a6;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.2);
-        }
-        .cuchara::after {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: -7px;
-            width: 10px;
-            height: 9px;
-            background: #7f8c8d;
-            border-radius: 50%;
-            border: 1px solid #5d6d7e;
-        }
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 20, 10, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+      overflow-y: auto;
+      padding: 1rem;
+    }
 
-        .espiral {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 3px solid #8a7a5a;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .modal-content {
+      background: #fef7e9;
+      max-width: 550px;
+      width: 95%;
+      padding: 2rem;
+      border: 6px double #8b5a2b;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(139, 90, 43, 0.2);
+      position: relative;
+      font-family: Georgia, 'Times New Roman', serif;
+      animation: abrir 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
 
-        .cubo {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: #b8a26b;
-            border: 1px solid #5c4a2a;
-            box-shadow: 1px 1px 0 #7a6a4a;
-        }
-        .cubo-md {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            background: #b8a26b;
-            border: 1px solid #5c4a2a;
-            box-shadow: 1px 1px 0 #7a6a4a;
-        }
-        .cubo-lg {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background: #b8a26b;
-            border: 1px solid #5c4a2a;
-            box-shadow: 1px 1px 0 #7a6a4a;
-        }
+    @keyframes abrir {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
 
-        .tira-fina {
-            display: inline-block;
-            width: 3px;
-            height: 16px;
-            background: #8f9e6b;
-            border: 1px solid #4a5a2a;
-            border-radius: 1px;
-        }
-        .tira {
-            display: inline-block;
-            width: 5px;
-            height: 18px;
-            background: #8f9e6b;
-            border: 1px solid #4a5a2a;
-            border-radius: 1px;
-        }
-        .tira-gruesa {
-            display: inline-block;
-            width: 7px;
-            height: 20px;
-            background: #8f9e6b;
-            border: 1px solid #4a5a2a;
-            border-radius: 1px;
-        }
+    .modal-content h2 {
+      font-size: 2rem;
+      color: #5c3a21;
+      text-align: center;
+      border-bottom: 2px dotted #b08968;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
 
-        .media-luna {
-            display: inline-block;
-            width: 20px;
-            height: 12px;
-            background: #b8a26b;
-            border-radius: 0 0 20px 20px;
-            border: 1px solid #5a4a2a;
-            border-top: none;
-        }
+    .modal-content h3 {
+      font-size: 1.3rem;
+      color: #5c3a21;
+      margin: 1rem 0 0.5rem;
+      border-left: 4px solid #8b5a2b;
+      padding-left: 0.8rem;
+    }
 
-        .gajo {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-bottom: 18px solid #b8a26b;
-        }
+    .modal-content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #3e2e1f;
+    }
 
-        .rodaja {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background: #b8a26b;
-            border-radius: 50%;
-            border: 2px solid #5a4a2a;
-            box-shadow: inset 0 0 0 2px #f5e6d3;
-        }
+    .modal-content ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: #3e2e1f;
+    }
 
-        .circulo {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #8a7a5a;
-            border-radius: 50%;
-            background: transparent;
-        }
-        .cuadrado {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #8a7a5a;
-            background: transparent;
-        }
-        .triangulo {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            border-left: 9px solid transparent;
-            border-right: 9px solid transparent;
-            border-bottom: 16px solid #8a7a5a;
-        }
-        .linea {
-            display: inline-block;
-            width: 20px;
-            height: 2px;
-            background: #8a7a5a;
-        }
-        .punto {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: #8a7a5a;
-            border-radius: 50%;
-        }
-        .flecha {
-            display: inline-block;
-            width: 16px;
-            height: 4px;
-            background: #8a7a5a;
-            position: relative;
-        }
-        .flecha::after {
-            content: '';
-            position: absolute;
-            right: -7px;
-            top: -4px;
-            width: 0;
-            height: 0;
-            border-left: 7px solid #8a7a5a;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-        }
+    .modal-content ol li {
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
 
-        .usos-comida {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 4px;
-            margin-top: 6px;
-            font-weight: normal;
-        }
-        .usos-comida span {
-            background: #ede4d5;
-            padding: 1px 8px;
-            border-radius: 20px;
-            border: 1px solid #c0a98a;
-            color: #4a3a2a;
-            font-size: 0.6rem;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-        }
+    .modal-visual {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 12px 0;
+      font-size: 1.6rem;
+    }
 
-        /* ========== MODAL ========== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(30, 20, 10, 0.75);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(3px);
-            overflow-y: auto;
-            padding: 1rem;
-        }
+    .modal-usos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
 
-        .modal-content {
-            background: var(--bg-modal);
-            max-width: 550px;
-            width: 95%;
-            padding: 2rem;
-            border: 6px double var(--border-double);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg), inset 0 0 30px rgba(139, 90, 43, 0.2);
-            position: relative;
-            font-family: Georgia, 'Times New Roman', serif;
-            animation: abrir 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
+    .modal-usos span {
+      background: #ede4d5;
+      padding: 2px 14px;
+      border-radius: 30px;
+      border: 1px solid #b08968;
+      font-size: 0.9rem;
+      color: #4a3a2a;
+    }
 
-        @keyframes abrir {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+    .cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.8rem;
+      color: #8b5a2b;
+      cursor: pointer;
+      font-weight: bold;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 10;
+    }
 
-        .modal-content h2 {
-            font-size: 2rem;
-            color: var(--text-heading);
-            text-align: center;
-            border-bottom: 2px dotted var(--border-light);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.2rem;
-        }
+    .cerrar-modal:hover {
+      color: #a0522d;
+    }
 
-        .modal-content h3 {
-            font-size: 1.3rem;
-            color: var(--text-heading);
-            margin: 1.2rem 0 0.5rem;
-            border-left: 4px solid var(--border-double);
-            padding-left: 0.8rem;
-        }
+    footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: #7b5b3a;
+      border-top: 1px dashed #b08968;
+      padding-top: 1rem;
+    }
 
-        .modal-content p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-dark);
-        }
-
-        .modal-content ol {
-            margin: 0.5rem 0 1rem 1.5rem;
-            color: var(--text-dark);
-            padding-left: 0.5rem;
-        }
-        .modal-content ol li {
-            margin-bottom: 0.4rem;
-            line-height: 1.5;
-        }
-
-        .modal-visual {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 12px 0;
-            font-size: 1.8rem;
-            flex-wrap: wrap;
-        }
-        .modal-visual img {
-            max-width: 120px;
-            border-radius: 12px;
-            border: 2px solid #b08968;
-        }
-
-        .modal-usos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .modal-usos span {
-            background: #ede4d5;
-            padding: 2px 16px;
-            border-radius: 30px;
-            border: 1px solid #b08968;
-            font-size: 0.9rem;
-            color: #4a3a2a;
-        }
-
-        .cerrar-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 2rem;
-            color: #8b5a2b;
-            cursor: pointer;
-            font-weight: bold;
-            background: none;
-            border: none;
-            line-height: 1;
-            transition: color 0.2s;
-            z-index: 10;
-        }
-        .cerrar-modal:hover {
-            color: #a0522d;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2.5rem;
-            font-style: italic;
-            color: #7b5b3a;
-            border-top: 1px dashed #b08968;
-            padding-top: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .container { padding: 1rem; }
-            header h1 { font-size: 2rem; }
-            .casilla { font-size: 1rem; }
-            .glosario-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-        }
-    </style>
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      header h1 { font-size: 2.2rem; }
+      .casilla { font-size: 1rem; }
+      .glosario-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Glosario de Cocina</h1>
-            <p>1-3 Turismo</p>
-        </header>
+  <div class="container">
+    <header>
+      <h1>Glosario de Cocina</h1>
+      <p>1-3 Turismo</p>
+    </header>
 
-        <div class="categorias">
-            <button class="btn-categoria activo" data-categoria="todas">Todas</button>
-            <button class="btn-categoria" data-categoria="tecnica">Técnicas</button>
-            <button class="btn-categoria" data-categoria="corte">Cortes</button>
-            <button class="btn-categoria" data-categoria="comida">Comidas</button>
-        </div>
-
-        <div class="glosario-grid" id="glosarioGrid"></div>
-
-        <footer>1-3 Turismo</footer>
+    <div class="categorias">
+      <button class="btn-categoria activo" data-categoria="todas">📖 Todas</button>
+      <button class="btn-categoria" data-categoria="tecnica">🍳 Técnicas</button>
+      <button class="btn-categoria" data-categoria="corte">🔪 Cortes</button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-content">
-            <button class="cerrar-modal" id="cerrarModal">&times;</button>
-            <h2 id="modalTitulo"></h2>
-            <div id="modalVisual" class="modal-visual"></div>
-            <p id="modalDefinicion"></p>
-            <div id="modalProcedimiento"></div>
-            <div id="modalUsos" class="modal-usos"></div>
-        </div>
+    <div class="glosario-grid" id="glosarioGrid"></div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <button class="cerrar-modal" id="cerrarModal">&times;</button>
+      <h2 id="modalTitulo"></h2>
+      <div id="modalVisual" class="modal-visual"></div>
+      <p id="modalDefinicion"></p>
+      <div id="modalProcedimiento"></div>
+      <div id="modalUsos" class="modal-usos"></div>
     </div>
+  </div>
 
-    <script>
-        const glosario = [
-            // TÉCNICAS
-            {
-                termino: "Blanquear",
-                definicion: "Cocer brevemente en agua hirviendo y luego sumergir en agua helada para detener la cocción, conservando color y textura.",
-                procedimiento: [
-                    "Pon a hervir abundante agua con una pizca de sal en una olla grande.",
-                    "Prepara un recipiente con agua fría y bastantes cubos de hielo al lado.",
-                    "Sumerge las verduras limpias en el agua hirviendo.",
-                    "Deja cocer entre 30 segundos y 2 minutos (según la dureza de la verdura).",
-                    "Saca las verduras con una espumadera o pinzas.",
-                    "Pásalas inmediatamente al agua helada para cortar la cocción.",
-                    "Escurre bien y reserva o congela."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="agua"></span><span class="circulo"></span><span class="agua"></span>',
-                usos: ["Verduras", "Conservas"]
-            },
-            {
-                termino: "Brasear",
-                definicion: "Dorar un alimento y luego cocinarlo lentamente en líquido aromático, con tapa, ideal para carnes duras.",
-                procedimiento: [
-                    "Salpimienta la carne y séllala en una sartén con aceite caliente hasta dorar todos los lados.",
-                    "Retira la carne y sofríe cebolla, zanahoria y apio en la misma sartén.",
-                    "Añade un chorro de vino tinto y deja que evapore el alcohol (1-2 minutos).",
-                    "Vuelve a poner la carne, añade caldo hasta cubrir la mitad y hierbas aromáticas.",
-                    "Tapa la olla y cocina a fuego MUY bajo durante 2-3 horas.",
-                    "La carne debe quedar tan tierna que se deshaga con el tenedor."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="sarten"></span><span class="olla"></span><span class="fuego"></span>',
-                usos: ["Carnes", "Aves"]
-            },
-            {
-                termino: "Emulsionar",
-                definicion: "Mezclar dos líquidos que normalmente no se juntan (como aceite y vinagre) hasta lograr una textura homogénea.",
-                procedimiento: [
-                    "Pon el vinagre (o limón) en un bol junto con la sal y mostaza si usas.",
-                    "Bate con varillas manuales o batidora eléctrica.",
-                    "Añade el aceite EN HILO MUY FINO, sin dejar de batir en una sola dirección.",
-                    "Sigue batiendo hasta que la mezcla espese y se vea cremosa y homogénea.",
-                    "Si se corta, añade una cucharadita de agua fría y sigue batiendo."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>',
-                usos: ["Ensaladas", "Salsas"]
-            },
-            {
-                termino: "Sofreír",
-                definicion: "Freír ligeramente a fuego medio-bajo hasta que el alimento esté tierno y aromático, sin llegar a dorar.",
-                procedimiento: [
-                    "Calienta un chorro de aceite en una sartén a fuego medio-bajo.",
-                    "Añade la cebolla o ajo picados (los más duros primero).",
-                    "Remueve constantemente con una cuchara de madera.",
-                    "Cocina hasta que estén transparentes y suaves (5-8 minutos para cebolla).",
-                    "No debe tomar color marrón; si se dora, baja el fuego."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>',
-                usos: ["Cebollas", "Ajos", "Verduras"]
-            },
-            {
-                termino: "Reducir",
-                definicion: "Hervir un líquido para evaporar parte del agua y concentrar los sabores, espesando la preparación.",
-                procedimiento: [
-                    "Vierte el caldo o vino en una sartén amplia (mejor que olla para más superficie).",
-                    "Pon a fuego medio-alto y NO tapes.",
-                    "Deja que hierva y evapore; verás cómo burbujea y el volumen disminuye.",
-                    "Remueve de vez en cuando para que no se pegue.",
-                    "Retira cuando tenga la consistencia deseada (jarabe ligero, salsa espesa, etc.)."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="fuego"></span><span class="agua"></span><span class="fuego"></span>',
-                usos: ["Salsas", "Caldos", "Vinos"]
-            },
-            {
-                termino: "Flamber",
-                definicion: "Rociar un plato con licor y prenderle fuego para realzar sabores y eliminar el alcohol.",
-                procedimiento: [
-                    "Calienta el licor (ron, coñac) en un cazo aparte SIN que hierva.",
-                    "Retira la sartén del fuego (¡importante por seguridad!).",
-                    "Vierte el licor caliente sobre el plato.",
-                    "Con un encendedor largo o cerilla, prende fuego inclinando ligeramente la sartén.",
-                    "Deja que la llama se apague sola (el alcohol se habrá evaporado)."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="fuego"></span><span class="fuego"></span><span class="fuego"></span>',
-                usos: ["Carnes", "Postres"]
-            },
-            {
-                termino: "Marinar",
-                definicion: "Sumergir carnes o pescados en un líquido condimentado para ablandar las fibras y dar sabor.",
-                procedimiento: [
-                    "Mezcla aceite, ácido (limón, vinagre o vino), hierbas y especias.",
-                    "Coloca la carne o pescado en un recipiente no metálico (vidrio o bolsa zip).",
-                    "Cubre completamente con la marinada.",
-                    "Tapa y refrigera (30 min para pescados, 2-8 horas para carnes rojas).",
-                    "Saca y seca con papel de cocina antes de cocinar."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="agua"></span><span class="cuadrado"></span><span class="agua"></span>',
-                usos: ["Carnes", "Pescados"]
-            },
-            {
-                termino: "Gratinar",
-                definicion: "Dorar la superficie de un plato con calor superior, generalmente con queso o pan rallado.",
-                procedimiento: [
-                    "Prepara tu plato ya cocinado (pasta, verduras, etc.).",
-                    "Cubre la superficie con queso rallado y/o pan rallado.",
-                    "Añade unos puntitos de mantequilla para que dore mejor.",
-                    "Mete al horno con calor SOLO arriba (gratinador) a 200-220°C.",
-                    "Vigila constantemente; en 3-5 minutos estará dorado y burbujeante."
-                ],
-                categoria: "tecnica",
-                visual: '<span class="fuego"></span><span class="linea"></span><span class="fuego"></span>',
-                usos: ["Pastas", "Verduras"]
-            },
-            // CORTES
-            {
-                termino: "Juliana",
-                definicion: "Corte en tiras finas alargadas de aproximadamente 4-5 cm de largo y 1-2 mm de grosor.",
-                procedimiento: [
-                    "Lava y pela la verdura si es necesario.",
-                    "Corta los extremos para dejar un rectángulo o cilindro regular.",
-                    "Corta láminas finas de 2 mm de grosor a lo largo.",
-                    "Apila 3-4 láminas y corta tiras del mismo grosor (2 mm).",
-                    "Intenta mantener todas las tiras del mismo tamaño para cocción uniforme."
-                ],
-                categoria: "corte",
-                visual: '<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>',
-                usos: ["Ensaladas", "Arroces"]
-            },
-            {
-                termino: "Brunoise",
-                definicion: "Corte en cubos muy pequeños de 2-3 mm por lado, generalmente partiendo de tiras juliana.",
-                procedimiento: [
-                    "Primero obtén tiras juliana finas (ver procedimiento de juliana).",
-                    "Junta varias tiras alineadas.",
-                    "Corta transversalmente en cubos de 2-3 mm.",
-                    "Repite hasta procesar toda la verdura.",
-                    "Ideal para que se integre en salsas sin notarse trozos grandes."
-                ],
-                categoria: "corte",
-                visual: '<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>',
-                usos: ["Salsas", "Rellenos"]
-            },
-            {
-                termino: "Macedonia",
-                definicion: "Corte en cubos medianos de aproximadamente 5 mm por lado, usado para frutas o verduras.",
-                procedimiento: [
-                    "Pela y lava la fruta o verdura.",
-                    "Corta en rodajas de 5 mm de grosor.",
-                    "Corta cada rodaja en tiras de 5 mm de ancho.",
-                    "Gira 90° y corta en cubos de 5 mm.",
-                    "Todos los cubos deben ser parejos para que se cocinen o maceren igual."
-                ],
-                categoria: "corte",
-                visual: '<span class="cubo-md"></span><span class="cubo-md"></span><span class="cubo-md"></span>',
-                usos: ["Ensaladas", "Sopas"]
-            },
-            {
-                termino: "Concassé",
-                definicion: "Tomate pelado, sin semillas y picado en cubos pequeños, base de muchas salsas.",
-                procedimiento: [
-                    "Haz un corte en cruz en la base de cada tomate.",
-                    "Escalda en agua hirviendo 20-30 segundos hasta que la piel se empiece a soltar.",
-                    "Pasa a agua helada y pela la piel fácilmente.",
-                    "Corta por la mitad y exprime suavemente para quitar semillas.",
-                    "Pica la pulpa en cubos pequeños con cuchillo bien afilado."
-                ],
-                categoria: "corte",
-                visual: '<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>',
-                usos: ["Salsas", "Pastas"]
-            },
-            {
-                termino: "Chiffonade",
-                definicion: "Corte de hojas (lechuga, espinaca, albahaca) en tiras muy finas enrollándolas.",
-                procedimiento: [
-                    "Lava y seca bien las hojas.",
-                    "Apila 4-5 hojas una sobre otra, alineándolas.",
-                    "Enróllalas firmemente como un cigarro.",
-                    "Con cuchillo afilado, corta el rollo transversalmente en tiras finas de 2-3 mm.",
-                    "Separa las tiras con los dedos para que queden sueltas y aireadas."
-                ],
-                categoria: "corte",
-                visual: '<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>',
-                usos: ["Ensaladas", "Guarniciones"]
-            },
-            {
-                termino: "Medialuna",
-                definicion: "Corte en rodajas semicirculares, típico de cebollas, plátanos o papas.",
-                procedimiento: [
-                    "Pela la verdura o fruta.",
-                    "Corta por la mitad a lo largo (de polo a polo).",
-                    "Coloca la mitad con la parte plana hacia abajo sobre la tabla.",
-                    "Corta transversalmente en rodajas del grosor deseado.",
-                    "Las rodajas saldrán con forma de media luna natural."
-                ],
-                categoria: "corte",
-                visual: '<span class="media-luna"></span><span class="media-luna"></span><span class="media-luna"></span>',
-                usos: ["Cebollas", "Plátanos"]
-            },
-            {
-                termino: "Ocho cuartos",
-                definicion: "Corte en ocho gajos o trozos iguales, habitual en tomates o patatas para guisos.",
-                procedimiento: [
-                    "Lava la verdura (tomate, papa).",
-                    "Corta por la mitad verticalmente.",
-                    "Cada mitad córtala de nuevo por la mitad (ya tienes 4 cuartos).",
-                    "Cada cuarto córtalo una vez más por la mitad.",
-                    "Obtendrás 8 trozos o gajos del mismo tamaño aproximado."
-                ],
-                categoria: "corte",
-                visual: '<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>',
-                usos: ["Guisos", "Tomates"]
-            },
-            {
-                termino: "Rodaja",
-                definicion: "Corte transversal que produce círculos planos de grosor variable.",
-                procedimiento: [
-                    "Pela la verdura si es necesario.",
-                    "Sujeta firmemente con la mano en garra (dedos doblados hacia adentro).",
-                    "Corta transversalmente con cuchillo en movimiento de vaivén.",
-                    "Mantén el mismo grosor en todas las rodajas.",
-                    "Para pepinillos o encurtidos, usa mandolina para grosor exacto."
-                ],
-                categoria: "corte",
-                visual: '<span class="rodaja"></span><span class="rodaja"></span><span class="rodaja"></span>',
-                usos: ["Ensaladas", "Sopas"]
-            },
-            // COMIDAS (NUEVA CATEGORÍA)
-            {
-                termino: "Salsa Bechamel",
-                definicion: "Salsa blanca básica a base de leche, mantequilla y harina, ideal para gratinados y lasañas.",
-                procedimiento: [
-                    "Derrite 50 g de mantequilla en una cacerola a fuego medio.",
-                    "Añade 50 g de harina y cocina 2 minutos sin dejar de remover (roux).",
-                    "Vierte poco a poco 500 ml de leche caliente mientras bates enérgicamente.",
-                    "Cocina a fuego bajo hasta que espese, sin dejar de remover.",
-                    "Sazona con sal, pimienta y nuez moscada al gusto."
-                ],
-                categoria: "comida",
-                visual: '<img src="https://via.placeholder.com/100x100/f5e6d3/8b5a2b?text=Bechamel" alt="Salsa Bechamel">',
-                usos: ["Lasaña", "Gratinados"]
-            },
-            {
-                termino: "Ensalada Caprese",
-                definicion: "Ensalada italiana fresca con tomate, mozzarella y albahaca, aderezada con aceite de oliva.",
-                procedimiento: [
-                    "Lava y corta en rodajas 2 tomates medianos.",
-                    "Corta 200 g de mozzarella fresca en rodajas del mismo grosor.",
-                    "Alterna rodajas de tomate y mozzarella en un plato.",
-                    "Decora con hojas de albahaca fresca.",
-                    "Rocía con aceite de oliva virgen extra y una pizca de sal."
-                ],
-                categoria: "comida",
-                visual: '<img src="https://via.placeholder.com/100x100/f5e6d3/8b5a2b?text=Caprese" alt="Ensalada Caprese">',
-                usos: ["Entrada", "Verano"]
-            },
-            {
-                termino: "Arroz Blanco",
-                definicion: "Acompañamiento básico cocido en agua, esponjoso y suelto.",
-                procedimiento: [
-                    "Lava 1 taza de arroz hasta que el agua salga clara.",
-                    "Pon a hervir 2 tazas de agua con una pizca de sal.",
-                    "Añade el arroz, tapa y cocina a fuego bajo 15-18 minutos.",
-                    "Apaga el fuego y deja reposar 5 minutos sin destapar.",
-                    "Suelta el arroz con un tenedor antes de servir."
-                ],
-                categoria: "comida",
-                visual: '<img src="https://via.placeholder.com/100x100/f5e6d3/8b5a2b?text=Arroz" alt="Arroz Blanco">',
-                usos: ["Guarnición", "Base"]
-            }
-        ];
+  <script>
+    const glosario = [
+      // ========== TÉCNICAS (con procedimiento paso a paso) ==========
+      { termino: "Blanquear", 
+        definicion: "Cocer brevemente en agua hirviendo y luego sumergir en agua helada para detener la cocción, conservando color y textura.", 
+        procedimiento: [
+          "Pon a hervir abundante agua con una pizca de sal en una olla grande.",
+          "Prepara un recipiente con agua fría y bastantes cubos de hielo al lado.",
+          "Sumerge las verduras limpias en el agua hirviendo.",
+          "Deja cocer entre 30 segundos y 2 minutos (según la dureza de la verdura).",
+          "Saca las verduras con una espumadera o pinzas.",
+          "Pásalas inmediatamente al agua helada para cortar la cocción.",
+          "Escurre bien y reserva o congela."
+        ],
+        categoria: "tecnica", visual: `<span class="agua"></span><span class="circulo"></span><span class="agua"></span>`, usos: ["Verduras", "Conservas"] },
+      { termino: "Brasear", 
+        definicion: "Dorar un alimento y luego cocinarlo lentamente en líquido aromático, con tapa, ideal para carnes duras.", 
+        procedimiento: [
+          "Salpimienta la carne y séllala en una sartén con aceite caliente hasta dorar todos los lados.",
+          "Retira la carne y sofríe cebolla, zanahoria y apio en la misma sartén.",
+          "Añade un chorro de vino tinto y deja que evapore el alcohol (1-2 minutos).",
+          "Vuelve a poner la carne, añade caldo hasta cubrir la mitad y hierbas aromáticas.",
+          "Tapa la olla y cocina a fuego MUY bajo durante 2-3 horas.",
+          "La carne debe quedar tan tierna que se deshaga con el tenedor."
+        ],
+        categoria: "tecnica", visual: `<span class="sarten"></span><span class="olla"></span><span class="fuego"></span>`, usos: ["Carnes", "Aves"] },
+      { termino: "Emulsionar", 
+        definicion: "Mezclar dos líquidos que normalmente no se juntan (como aceite y vinagre) hasta lograr una textura homogénea.", 
+        procedimiento: [
+          "Pon el vinagre (o limón) en un bol junto con la sal y mostaza si usas.",
+          "Bate con varillas manuales o batidora eléctrica.",
+          "Añade el aceite EN HILO MUY FINO, sin dejar de batir en una sola dirección.",
+          "Sigue batiendo hasta que la mezcla espese y se vea cremosa y homogénea.",
+          "Si se corta, añade una cucharadita de agua fría y sigue batiendo."
+        ],
+        categoria: "tecnica", visual: `<span class="espiral"></span><span class="espiral"></span><span class="espiral"></span>`, usos: ["Ensaladas", "Salsas"] },
+      { termino: "Sofreír", 
+        definicion: "Freír ligeramente a fuego medio-bajo hasta que el alimento esté tierno y aromático, sin llegar a dorar.", 
+        procedimiento: [
+          "Calienta un chorro de aceite en una sartén a fuego medio-bajo.",
+          "Añade la cebolla o ajo picados (los más duros primero).",
+          "Remueve constantemente con una cuchara de madera.",
+          "Cocina hasta que estén transparentes y suaves (5-8 minutos para cebolla).",
+          "No debe tomar color marrón; si se dora, baja el fuego."
+        ],
+        categoria: "tecnica", visual: `<span class="sarten"></span><span class="fuego"></span><span class="sarten"></span>`, usos: ["Cebollas", "Ajos", "Verduras"] },
+      { termino: "Reducir", 
+        definicion: "Hervir un líquido para evaporar parte del agua y concentrar los sabores, espesando la preparación.", 
+        procedimiento: [
+          "Vierte el caldo o vino en una sartén amplia (mejor que olla para más superficie).",
+          "Pon a fuego medio-alto y NO tapes.",
+          "Deja que hierva y evapore; verás cómo burbujea y el volumen disminuye.",
+          "Remueve de vez en cuando para que no se pegue.",
+          "Retira cuando tenga la consistencia deseada (jarabe ligero, salsa espesa, etc.)."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="agua"></span><span class="fuego"></span>`, usos: ["Salsas", "Caldos", "Vinos"] },
+      { termino: "Flamber", 
+        definicion: "Rociar un plato con licor y prenderle fuego para realzar sabores y eliminar el alcohol.", 
+        procedimiento: [
+          "Calienta el licor (ron, coñac) en un cazo aparte SIN que hierva.",
+          "Retira la sartén del fuego (¡importante por seguridad!).",
+          "Vierte el licor caliente sobre el plato.",
+          "Con un encendedor largo o cerilla, prende fuego inclinando ligeramente la sartén.",
+          "Deja que la llama se apague sola (el alcohol se habrá evaporado)."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="fuego"></span><span class="fuego"></span>`, usos: ["Carnes", "Postres"] },
+      { termino: "Marinar", 
+        definicion: "Sumergir carnes o pescados en un líquido condimentado para ablandar las fibras y dar sabor.", 
+        procedimiento: [
+          "Mezcla aceite, ácido (limón, vinagre o vino), hierbas y especias.",
+          "Coloca la carne o pescado en un recipiente no metálico (vidrio o bolsa zip).",
+          "Cubre completamente con la marinada.",
+          "Tapa y refrigera (30 min para pescados, 2-8 horas para carnes rojas).",
+          "Saca y seca con papel de cocina antes de cocinar."
+        ],
+        categoria: "tecnica", visual: `<span class="agua"></span><span class="cuadrado"></span><span class="agua"></span>`, usos: ["Carnes", "Pescados"] },
+      { termino: "Gratinar", 
+        definicion: "Dorar la superficie de un plato con calor superior, generalmente con queso o pan rallado.", 
+        procedimiento: [
+          "Prepara tu plato ya cocinado (pasta, verduras, etc.).",
+          "Cubre la superficie con queso rallado y/o pan rallado.",
+          "Añade unos puntitos de mantequilla para que dore mejor.",
+          "Mete al horno con calor SOLO arriba (gratinador) a 200-220°C.",
+          "Vigila constantemente; en 3-5 minutos estará dorado y burbujeante."
+        ],
+        categoria: "tecnica", visual: `<span class="fuego"></span><span class="linea"></span><span class="fuego"></span>`, usos: ["Pastas", "Verduras"] },
 
-        const grid = document.getElementById('glosarioGrid');
-        const botonesCategoria = document.querySelectorAll('.btn-categoria');
-        const modal = document.getElementById('modal');
-        const modalTitulo = document.getElementById('modalTitulo');
-        const modalDefinicion = document.getElementById('modalDefinicion');
-        const modalVisual = document.getElementById('modalVisual');
-        const modalProcedimiento = document.getElementById('modalProcedimiento');
-        const modalUsos = document.getElementById('modalUsos');
-        const cerrarModal = document.getElementById('cerrarModal');
+      // ========== CORTES (con procedimiento paso a paso) ==========
+      { termino: "Juliana", 
+        definicion: "Corte en tiras finas alargadas de aproximadamente 4-5 cm de largo y 1-2 mm de grosor.", 
+        procedimiento: [
+          "Lava y pela la verdura si es necesario.",
+          "Corta los extremos para dejar un rectángulo o cilindro regular.",
+          "Corta láminas finas de 2 mm de grosor a lo largo.",
+          "Apila 3-4 láminas y corta tiras del mismo grosor (2 mm).",
+          "Intenta mantener todas las tiras del mismo tamaño para cocción uniforme."
+        ],
+        categoria: "corte", visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`, usos: ["Ensaladas", "Arroces"] },
+      { termino: "Brunoise", 
+        definicion: "Corte en cubos muy pequeños de 2-3 mm por lado, generalmente partiendo de tiras juliana.", 
+        procedimiento: [
+          "Primero obtén tiras juliana finas (ver procedimiento de juliana).",
+          "Junta varias tiras alineadas.",
+          "Corta transversalmente en cubos de 2-3 mm.",
+          "Repite hasta procesar toda la verdura.",
+          "Ideal para que se integre en salsas sin notarse trozos grandes."
+        ],
+        categoria: "corte", visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`, usos: ["Salsas", "Rellenos"] },
+      { termino: "Macedonia", 
+        definicion: "Corte en cubos medianos de aproximadamente 5 mm por lado, usado para frutas o verduras.", 
+        procedimiento: [
+          "Pela y lava la fruta o verdura.",
+          "Corta en rodajas de 5 mm de grosor.",
+          "Corta cada rodaja en tiras de 5 mm de ancho.",
+          "Gira 90° y corta en cubos de 5 mm.",
+          "Todos los cubos deben ser parejos para que se cocinen o maceren igual."
+        ],
+        categoria: "corte", visual: `<span class="cubo-md"></span><span class="cubo-md"></span><span class="cubo-md"></span>`, usos: ["Ensaladas", "Sopas"] },
+      { termino: "Concassé", 
+        definicion: "Tomate pelado, sin semillas y picado en cubos pequeños, base de muchas salsas.", 
+        procedimiento: [
+          "Haz un corte en cruz en la base de cada tomate.",
+          "Escalda en agua hirviendo 20-30 segundos hasta que la piel se empiece a soltar.",
+          "Pasa a agua helada y pela la piel fácilmente.",
+          "Corta por la mitad y exprime suavemente para quitar semillas.",
+          "Pica la pulpa en cubos pequeños con cuchillo bien afilado."
+        ],
+        categoria: "corte", visual: `<span class="cubo"></span><span class="cubo"></span><span class="cubo"></span>`, usos: ["Salsas", "Pastas"] },
+      { termino: "Chiffonade", 
+        definicion: "Corte de hojas (lechuga, espinaca, albahaca) en tiras muy finas enrollándolas.", 
+        procedimiento: [
+          "Lava y seca bien las hojas.",
+          "Apila 4-5 hojas una sobre otra, alineándolas.",
+          "Enróllalas firmemente como un cigarro.",
+          "Con cuchillo afilado, corta el rollo transversalmente en tiras finas de 2-3 mm.",
+          "Separa las tiras con los dedos para que queden sueltas y aireadas."
+        ],
+        categoria: "corte", visual: `<span class="tira-fina"></span><span class="tira-fina"></span><span class="tira-fina"></span>`, usos: ["Ensaladas", "Guarniciones"] },
+      { termino: "Medialuna", 
+        definicion: "Corte en rodajas semicirculares, típico de cebollas, plátanos o papas.", 
+        procedimiento: [
+          "Pela la verdura o fruta.",
+          "Corta por la mitad a lo largo (de polo a polo).",
+          "Coloca la mitad con la parte plana hacia abajo sobre la tabla.",
+          "Corta transversalmente en rodajas del grosor deseado.",
+          "Las rodajas saldrán con forma de media luna natural."
+        ],
+        categoria: "corte", visual: `<span class="media-luna"></span><span class="media-luna"></span><span class="media-luna"></span>`, usos: ["Cebollas", "Plátanos"] },
+      { termino: "Ocho cuartos", 
+        definicion: "Corte en ocho gajos o trozos iguales, habitual en tomates o patatas para guisos.", 
+        procedimiento: [
+          "Lava la verdura (tomate, papa).",
+          "Corta por la mitad verticalmente.",
+          "Cada mitad córtala de nuevo por la mitad (ya tienes 4 cuartos).",
+          "Cada cuarto córtalo una vez más por la mitad.",
+          "Obtendrás 8 trozos o gajos del mismo tamaño aproximado."
+        ],
+        categoria: "corte", visual: `<span class="gajo"></span><span class="gajo"></span><span class="gajo"></span>`, usos: ["Guisos", "Tomates"] },
+      { termino: "Rodaja", 
+        definicion: "Corte transversal que produce círculos planos de grosor variable.", 
+        procedimiento: [
+          "Pela la verdura si es necesario.",
+          "Sujeta firmemente con la mano en garra (dedos doblados hacia adentro).",
+          "Corta transversalmente con cuchillo en movimiento de vaivén.",
+          "Mantén el mismo grosor en todas las rodajas.",
+          "Para pepinillos o encurtidos, usa mandolina para grosor exacto."
+        ],
+        categoria: "corte", visual: `<span class="rodaja"></span><span class="rodaja"></span><span class="rodaja"></span>`, usos: ["Ensaladas", "Sopas"] }
+    ];
 
-        let categoriaActiva = 'todas';
+    // Elementos del DOM
+    const grid = document.getElementById('glosarioGrid');
+    const botonesCategoria = document.querySelectorAll('.btn-categoria');
+    const modal = document.getElementById('modal');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalDefinicion = document.getElementById('modalDefinicion');
+    const modalVisual = document.getElementById('modalVisual');
+    const modalProcedimiento = document.getElementById('modalProcedimiento');
+    const modalUsos = document.getElementById('modalUsos');
+    const cerrarModal = document.getElementById('cerrarModal');
 
-        function renderGlosario(categoria) {
-            grid.innerHTML = '';
-            const filtrados = categoria === 'todas'
-                ? glosario
-                : glosario.filter(item => item.categoria === categoria);
+    let categoriaActiva = 'todas';
 
-            filtrados.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'casilla';
-                div.setAttribute('tabindex', '0');
-                div.setAttribute('role', 'button');
-                div.setAttribute('aria-label', `${item.termino} - clic para más información`);
+    function renderGlosario(categoria) {
+      grid.innerHTML = '';
+      const filtrados = categoria === 'todas' 
+        ? glosario 
+        : glosario.filter(item => item.categoria === categoria);
 
-                const nombre = document.createElement('div');
-                nombre.className = 'termino-nombre';
-                nombre.textContent = item.termino;
-                div.appendChild(nombre);
+      filtrados.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'casilla';
 
-                if (item.visual) {
-                    const visualDiv = document.createElement('div');
-                    visualDiv.className = item.categoria === 'comida' ? 'visual-comida' : (item.categoria === 'tecnica' ? 'visual-tecnica' : 'visual-corte');
-                    visualDiv.innerHTML = item.visual;
-                    div.appendChild(visualDiv);
-                }
+        const nombre = document.createElement('div');
+        nombre.textContent = item.termino;
+        div.appendChild(nombre);
 
-                if (item.usos && item.usos.length > 0) {
-                    const usosDiv = document.createElement('div');
-                    usosDiv.className = 'usos-comida';
-                    item.usos.forEach(uso => {
-                        const span = document.createElement('span');
-                        span.textContent = uso;
-                        usosDiv.appendChild(span);
-                    });
-                    div.appendChild(usosDiv);
-                }
+        if (item.visual) {
+          const visualDiv = document.createElement('div');
+          visualDiv.className = item.categoria === 'tecnica' ? 'visual-tecnica' : 'visual-corte';
+          visualDiv.innerHTML = item.visual;
+          div.appendChild(visualDiv);
+        }
 
-                div.addEventListener('click', () => abrirModal(item));
-                div.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        abrirModal(item);
-                    }
-                });
+        if (item.usos && item.usos.length > 0) {
+          const usosDiv = document.createElement('div');
+          usosDiv.className = 'usos-comida';
+          item.usos.forEach(uso => {
+            const span = document.createElement('span');
+            span.textContent = uso;
+            usosDiv.appendChild(span);
+          });
+          div.appendChild(usosDiv);
+        }
 
-                grid.appendChild(div);
+        div.addEventListener('click', () => {
+          modalTitulo.textContent = item.termino;
+          modalDefinicion.textContent = item.definicion;
+          modalVisual.innerHTML = item.visual || '';
+
+          // Construir procedimiento
+          modalProcedimiento.innerHTML = '';
+          if (item.procedimiento && item.procedimiento.length > 0) {
+            const titulo = document.createElement('h3');
+            titulo.textContent = item.categoria === 'tecnica' ? '🍳 Procedimiento' : '🔪 Cómo hacer este corte';
+            modalProcedimiento.appendChild(titulo);
+            const ol = document.createElement('ol');
+            item.procedimiento.forEach(paso => {
+              const li = document.createElement('li');
+              li.textContent = paso;
+              ol.appendChild(li);
             });
-        }
+            modalProcedimiento.appendChild(ol);
+          }
 
-        function abrirModal(item) {
-            modalTitulo.textContent = item.termino;
-            modalDefinicion.textContent = item.definicion;
-            modalVisual.innerHTML = item.visual || '';
-
-            modalProcedimiento.innerHTML = '';
-            if (item.procedimiento && item.procedimiento.length > 0) {
-                const titulo = document.createElement('h3');
-                titulo.textContent = item.categoria === 'tecnica' ? 'Procedimiento' : (item.categoria === 'corte' ? 'Cómo hacer este corte' : 'Preparación');
-                modalProcedimiento.appendChild(titulo);
-                const ol = document.createElement('ol');
-                item.procedimiento.forEach(paso => {
-                    const li = document.createElement('li');
-                    li.textContent = paso;
-                    ol.appendChild(li);
-                });
-                modalProcedimiento.appendChild(ol);
-            }
-
-            modalUsos.innerHTML = '';
-            if (item.usos && item.usos.length > 0) {
-                item.usos.forEach(uso => {
-                    const span = document.createElement('span');
-                    span.textContent = uso;
-                    modalUsos.appendChild(span);
-                });
-            }
-            modal.style.display = 'flex';
-            modal.querySelector('.modal-content').scrollTop = 0;
-            document.body.style.overflow = 'hidden';
-        }
-
-        function cerrarModalHandler() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        botonesCategoria.forEach(btn => {
-            btn.addEventListener('click', () => {
-                botonesCategoria.forEach(b => b.classList.remove('activo'));
-                btn.classList.add('activo');
-                categoriaActiva = btn.dataset.categoria;
-                renderGlosario(categoriaActiva);
+          modalUsos.innerHTML = '';
+          if (item.usos && item.usos.length > 0) {
+            item.usos.forEach(uso => {
+              const span = document.createElement('span');
+              span.textContent = uso;
+              modalUsos.appendChild(span);
             });
+          }
+          modal.style.display = 'flex';
+          modal.querySelector('.modal-content').scrollTop = 0;
         });
+        grid.appendChild(div);
+      });
+    }
 
-        cerrarModal.addEventListener('click', cerrarModalHandler);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) cerrarModalHandler();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                cerrarModalHandler();
-            }
-        });
+    botonesCategoria.forEach(btn => {
+      btn.addEventListener('click', () => {
+        botonesCategoria.forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        categoriaActiva = btn.dataset.categoria;
+        renderGlosario(categoriaActiva);
+      });
+    });
 
-        renderGlosario('todas');
-    </script>
+    cerrarModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      }
+    });
+
+    renderGlosario('todas');
+  </script>
 </body>
 </html>
